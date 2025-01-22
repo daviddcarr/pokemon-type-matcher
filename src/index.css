@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.coin-flip-container {
+  perspective: 1000px;
+}
+
+.coin-flip-inner {
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.coin-flip-inner .coin-face {
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.coin-face.face-back {
+  transform: rotateY(180deg) translateZ(-1px);
+}
