@@ -8,19 +8,6 @@ import BattlePositionButton from "./components/BattlePositionButton"
 import { BattlePositions, DAMAGE_TYPES } from "./lib/types"
 import TypeIcon from "./components/TypeIcon"
 
-// const battlePositionOptions: {value: BattlePositions, label: string, color: string} = [
-//   {
-//     value: "to",
-//     label: "Attacking",
-//     color: "#FF0000"
-//   },
-//   {
-//     value: "from",
-//     label: "Defending",
-//     color: "#0000FF"
-//   }
-// ]
-
 function App() {
   const [ selectedType, setSelectedType] = useState<PokeTypeData>(pokeTypes[0])
   const [ battlePosition, setBattlePosition] = useState<BattlePositions>("to")
