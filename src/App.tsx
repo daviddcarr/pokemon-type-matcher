@@ -124,7 +124,7 @@ function App() {
                   pokeTypes.map((type, index) => {
                     return (
                       <div 
-                        className="circle origin-bottom absolute left-1/2 pointer-events-auto" 
+                        className="circle origin-bottom absolute left-1/2" 
                         key={index} 
                         style={{ 
                           transform: `translateX(-50%) rotate(${index * 20}deg) translateY(-10px)`,
@@ -132,6 +132,7 @@ function App() {
                           }}>
                         <Slice 
                           type={type} 
+                          radius={radius}
                           selected={type === selectedType}
                           onClick={() => setSelectedType(type)}
                           />

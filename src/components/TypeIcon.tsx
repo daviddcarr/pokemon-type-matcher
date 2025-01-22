@@ -1,3 +1,5 @@
+import classNames from "classnames"
+
 import bug from "../assets/icons/bug.svg"
 import dark from "../assets/icons/dark.svg"
 import dragon from "../assets/icons/dragon.svg"
@@ -51,7 +53,7 @@ const TypeIcon = ({type, className, style}: TypeIconProps) => {
     return (
         <img 
             src={TYPE_ICONS[type]} 
-            className={className ?? ""} 
+            className={classNames("max-w-full max-h-full", className)}
             style={style ?? {}}
             />
     )

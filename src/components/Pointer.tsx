@@ -24,7 +24,7 @@ const Pointer = ({ type, radius, position, damageType }: PointerProps) => {
                 "w-0 absolute bottom-full origin-bottom transition-transform pointer-events-none"
             )} 
             style={{ 
-                height: `${radius * 0.6}px`,
+                height: `${radius * 0.8}px`,
                 transform: `rotate(${ (getIdFromType(type.name) - 1) * 20}deg)`,
                 }}>
                     <div className="">
