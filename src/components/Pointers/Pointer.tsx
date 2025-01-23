@@ -21,6 +21,14 @@ const COLOR_MAP: Record<DualDamageTypes, string> = {
     "no": "#000000"
 }
 
+const TEXT_COLOR_MAP: Record<DualDamageTypes, string> = {
+    "quadruple": "text-[#00BF00] dark:text-[#00FF00]",
+    "double": "text-[#00BF00] dark:text-[#00FF00]",
+    "half": "text-[#7E1C00] dark:text-[#FF4444]",
+    "quarter": "text-[#7E1C00] dark:text-[#FF4444]",
+    "no": "text-[#000000] dark:text-[#FFFFFF]"
+}
+
 const Pointer = ({ type, radius, position, damageType, parentMounted }: PointerProps) => {
 
     return (
@@ -44,12 +52,14 @@ const Pointer = ({ type, radius, position, damageType, parentMounted }: PointerP
                             transitionDelay: `${(pokeTypes.length + 10) * 10}ms`,
                         }}>
                         <div 
-                            className="rounded-full bg-white font-bold flex items-center justify-center pointer-events-none tracking-tighter"
+                            className={classNames(
+                                "rounded-full bg-white dark:bg-slate-800 font-bold flex items-center justify-center pointer-events-none tracking-tighter",
+                                TEXT_COLOR_MAP[damageType]
+                            )}
                             style={{
                                 width: `${radius * 0.1}px`,
                                 height: `${radius * 0.1}px`,
-                                fontSize: `${radius * 0.035}px`,
-                                color: COLOR_MAP[damageType],
+                                fontSize: `${radius * 0.03}px`,
                                 transform: `translateX(-50%) rotate(-${ (getIdFromType(type.name) - 1) * 20}deg)`,
                             }}
                             >
@@ -77,7 +87,7 @@ const Pointer = ({ type, radius, position, damageType, parentMounted }: PointerP
                                         <GiPlayButton
                                             className="relative pointer-events-none"
                                             style={{
-                                                transform: position === "to" ? "translateX(-50%) rotate(-90deg)" : "translateX(-50%) rotate(90deg)",
+                                                transform: position === "to" ? "translateX(-50%) translateY(-20px) rotate(-90deg)" : "translateX(-50%) translateY(-20px) rotate(90deg)",
                                                 color: COLOR_MAP[damageType],
                                                 fontSize: `${radius * 0.1}px`,
                                             }}

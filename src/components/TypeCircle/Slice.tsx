@@ -14,7 +14,7 @@ const Slice = ({type, radius, selected = false, onClick}: SliceProps) => {
         <div 
             className="w-full h-full relative"
             >
-            <div className={`${selected ? "-translate-y-8" : ""} w-full h-full relative transition-transform`}>
+            <div className={`${selected ? "-translate-y-8" : "hover:-translate-y-2"} w-full h-full relative transition-transform`}>
                 <svg 
                     width="100%" 
                     height="100%" 
@@ -23,7 +23,6 @@ const Slice = ({type, radius, selected = false, onClick}: SliceProps) => {
                     xmlns="http://www.w3.org/2000/svg" 
                     xmlnsXlink="http://www.w3.org/1999/xlink" 
                     xmlSpace="preserve" 
-                    className={`${!selected && "transition-transform hover:-translate-y-2 cursor-pointer"}`}
                     style={{ 
                         fillRule: "evenodd", 
                         clipRule: "evenodd", 

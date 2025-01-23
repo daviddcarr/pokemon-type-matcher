@@ -36,6 +36,7 @@ export type PokeTypeData = {
 export type Pokemon = {
     id: number
     name: string
+    names: Record<string, string>
     types: Array<PokeType>
     sprites: { front_default: string }
 }

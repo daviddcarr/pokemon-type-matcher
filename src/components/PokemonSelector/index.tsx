@@ -19,7 +19,26 @@ const PokemonSelector = ({
             setFilteredPokemon(allPokemon)
             return
         }
-        const filtered = allPokemon.filter(pokemon => pokemon.name.toLowerCase().includes(searchTerm.toLowerCase()))
+
+        const lowerTerm = searchTerm.toLocaleLowerCase()
+
+
+        const filtered: Pokemon[] = allPokemon.filter(pokemon => {
+            if (pokemon.name.toLowerCase().includes(lowerTerm)) {
+                return true;
+            }
+
+            if (pokemon.names) {
+                const matchesAnyLang = Object.values(pokemon.names).some((localizedName) =>
+                  localizedName.toLowerCase().includes(lowerTerm)
+                );
+                if (matchesAnyLang) {
+                  return true;
+                }
+              }
+
+            return false;
+        })
         setFilteredPokemon(filtered)
     }
 

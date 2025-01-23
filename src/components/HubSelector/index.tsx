@@ -1,5 +1,4 @@
 import classNames from "classnames"
-import { useState, useRef, useEffect } from "react"
 
 import ALL_POKE_TYPES from "@data/types"
 import { BattlePositions, Pokemon, PokeTypeData } from "@lib/types"
@@ -33,22 +32,6 @@ const HubSelector = ({
     showPokemonSelector
 }: HubSelectorProps) => {
 
-    // State management to store old type for circular swipe transition
-    const [oldType, setOldType] = useState<PokeTypeData>(selectedType)
-    const [showOverlay, setShowOverlay] = useState(false)
-    const overlayRef = useRef<HTMLDivElement>(null)
-
-    useEffect(() => {
-        if ( selectedType.color !== oldType.color ) {
-            setShowOverlay(true)
-        }
-    }, [selectedType.color, oldType])
-
-    function handleOverlayTransitionEnd() {
-        setShowOverlay(false)
-        setOldType(selectedType)
-    }
-
     return (
         <>
             <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 z-20"
@@ -59,29 +42,13 @@ const HubSelector = ({
                 >
                 <div 
                     className={classNames(
-                        "absolute rounded-full h-full w-full z-10 border-4 origin-center border-slate-100 dark:border-slate-800 flex items-center justify-center transition-transform",
+                        "absolute rounded-full h-full w-full z-10 origin-center flex items-center justify-center transition-transform",
                     )}>
-
-                    {/* Transition overlay */}
-                    {showOverlay && (
-                        <div
-                            ref={overlayRef}
-                            className="absolute rounded-full h-full w-full origin-center flex items-center justify-center transition-transform z-[21]"
-                            style={{
-                                backgroundColor: oldType.color,
-                                clipPath: "circle(0% at 50% 50%)",
-                                animation: "overlayRadial 0.5s forwards ease-in-out",
-                            }}
-                            onAnimationEnd={handleOverlayTransitionEnd}
-                        >
-                            <TypeIcon type={oldType.name} className="w-1/2 h-1/2 object-contain" />
-                        </div>
-                    )}
 
                     {/* Selected type */}
                     <div 
                         className={classNames(
-                            "absolute rounded-full h-full w-full z-20 origin-center flex items-center justify-center transition-transform",
+                            "absolute rounded-full h-full w-full z-20 border-4 border-slate-100 dark:border-slate-800 origin-center flex items-center justify-center transition-transform",
                             parentMounted ? 'scale-100' : 'scale-0'
                         )}
                         style={{

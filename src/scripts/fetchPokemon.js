@@ -1,12 +1,10 @@
 import fs from 'fs/promises';
 import fetch from 'node-fetch';
 
-// Grab the second argument from the command line (process.argv[2]) 
-// and parse it as an integer.
 const userArg = parseInt(process.argv[2], 10);
-
-// If the user didn't provide an argument or provided something invalid, default to 1025
 const CURRENT_MAX = Number.isNaN(userArg) ? 1025 : userArg;
+
+const SUPPORTED_LANGUAGES = [ "en", "ja", "es", "fr", "it", "de", "ko" ]
 
 async function getPokemonCount() {
     const resp = await fetch('https://pokeapi.co/api/v2/pokemon');
@@ -41,7 +39,25 @@ async function main() {
                 id: data.id,
                 name: data.name,
                 types,
-                sprites: { front_default: data.sprites.front_default }
+                sprites: { front_default: data.sprites.front_default },
+                names: []
+            }
+
+            // Check for names in other languages
+            if (data.species?.url) {
+                const speciesResp = await fetch(data.species.url)
+                if (speciesResp.ok) {
+                    const speciesData = await speciesResp.json()
+                    const allNames = speciesData.names
+                    const multiLangNames = {}
+                    allNames.forEach((name) => {
+                        const langCode = name.language.name
+                        if ( SUPPORTED_LANGUAGES.includes(langCode)) {
+                            multiLangNames[langCode] = name.name
+                        }
+                    })
+                    pokemon.names = multiLangNames
+                }
             }
 
             pokemonList.push(pokemon);
