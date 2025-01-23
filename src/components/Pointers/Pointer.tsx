@@ -1,9 +1,8 @@
 import classNames from "classnames"
 import { GiPlayButton, GiCancel } from "react-icons/gi";
 
-import pokeTypes, { PokeTypeData } from "@data/types"
-import { getIdFromType } from "@data/types"
-import { BattlePositions, DualDamageTypes } from "@lib/types"
+import pokeTypes, { getIdFromType } from "@data/types"
+import { BattlePositions, DualDamageTypes, PokeTypeData } from "@lib/types"
 
 
 export type PointerProps = {

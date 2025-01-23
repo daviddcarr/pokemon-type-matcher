@@ -1,19 +1,20 @@
 import classNames from "classnames"
 import { useEffect, useState } from "react"
 
-import ALL_POKE_TYPES, { PokeTypeData } from "@data/types"
+import ALL_POKE_TYPES from "@data/types"
+import { PokeTypeData } from "@lib/types"
 import Slice from "./Slice"
 
 export interface TypeCircleProps {
     radius: number
     selectedType: PokeTypeData
-    setSelectedType: (type: PokeTypeData) => void
+    onChange: (type: PokeTypeData) => void
 }
 
 const TypeCircle = ({
     radius,
     selectedType,
-    setSelectedType
+    onChange
 }: TypeCircleProps) => {
 
     const [ componentMounted, setComponentMounted ] = useState(false);
@@ -44,7 +45,7 @@ const TypeCircle = ({
                 type={type} 
                 radius={radius}
                 selected={type === selectedType}
-                onClick={() => setSelectedType(type)}
+                onClick={() => onChange(type)}
                 />
             </div>
           </div>

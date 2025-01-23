@@ -1,12 +1,16 @@
-import { BattlePositions, DAMAGE_TYPES, DUAL_DAMAGE_TYPES } from "@lib/types"
 import { 
-    DamageRelationKey, 
-    DualPokeDamageRelations, 
+    BattlePositions, 
     PokeType, 
+    DamageRelationKey, 
+    DualPokeDamageRelations,  
     PokeTypeData, 
+    DualDamageRelationKey
+} from "@lib/types"
+import { 
+    DAMAGE_TYPES, 
+    DUAL_DAMAGE_TYPES, 
     getDataFromType,
     combineDualTypes,
-    DualDamageRelationKey
 } from "@data/types"
 import Pointer from "@components/Pointers/Pointer"
 

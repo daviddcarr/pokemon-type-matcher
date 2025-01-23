@@ -1,3 +1,5 @@
+import { PokeType, PokeTypeData, DualPokeDamageRelations } from "@lib/types"
+
 export const POKE_TYPE_NAMES = [
     "normal",
     "fire",
@@ -17,32 +19,9 @@ export const POKE_TYPE_NAMES = [
     "dark",
     "steel",
     "fairy"]
-export type PokeType = typeof POKE_TYPE_NAMES[number]
 
-export type DamageRelationKey = 
-    "double_damage_from" |
-    "double_damage_to" |
-    "half_damage_from" |
-    "half_damage_to" |
-    "no_damage_from" |
-    "no_damage_to"
-
-export type DualDamageRelationKey =
-    "quadruple_damage_from" |
-    "double_damage_from" |
-    "half_damage_from" |
-    "quarter_damage_from" |
-    "no_damage_from"
-
-type PokeDamageRelations = Record<DamageRelationKey, PokeType[]>
-export type DualPokeDamageRelations = Record<DualDamageRelationKey, PokeType[]>
-
-export type PokeTypeData = {
-    id: number,
-    name: PokeType,
-    color: string,
-    damage_relations: PokeDamageRelations
-}
+export const DAMAGE_TYPES = ["half", "double", "no"]
+export const DUAL_DAMAGE_TYPES = [...DAMAGE_TYPES, "quarter", "quadruple"]
 
 export const getSingleTypeMultiplier = (defender: PokeTypeData, attacker: PokeTypeData): number => {
     if (defender.damage_relations.no_damage_from.includes(attacker.name)) {
