@@ -1,4 +1,5 @@
-import { getIdFromType, PokeTypeData } from "@data/types"
+import { getIdFromType } from "@data/types"
+import { PokeTypeData } from "@lib/types"
 import TypeIcon from "@components/TypeIcon"
 
 export type SliceProps = {
@@ -22,6 +23,7 @@ const Slice = ({type, radius, selected = false, onClick}: SliceProps) => {
                     xmlns="http://www.w3.org/2000/svg" 
                     xmlnsXlink="http://www.w3.org/1999/xlink" 
                     xmlSpace="preserve" 
+                    className={`${!selected && "transition-transform hover:-translate-y-2 cursor-pointer"}`}
                     style={{ 
                         fillRule: "evenodd", 
                         clipRule: "evenodd", 

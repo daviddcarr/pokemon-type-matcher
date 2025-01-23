@@ -19,7 +19,7 @@ import rock from "@assets/icons/rock.svg"
 import steel from "@assets/icons/steel.svg"
 import water from "@assets/icons/water.svg"
 
-import { PokeType } from "@data/types"
+import { PokeType } from "@lib/types"
 
 const TYPE_ICONS: Record<PokeType, string> = {
     bug,

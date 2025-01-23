@@ -1,12 +1,13 @@
 import classNames from "classnames"
 import { useState, useRef, useEffect } from "react"
 
-import ALL_POKE_TYPES, { PokeTypeData } from "@data/types"
-import { BattlePositions } from "@lib/types"
+import ALL_POKE_TYPES from "@data/types"
+import { BattlePositions, Pokemon, PokeTypeData } from "@lib/types"
 
 import TypeIcon from "@components/TypeIcon"
 import BattlePositionButton from "@components/HubSelector/BattlePositionButton"
 import DualTypeButton from "@components/HubSelector/DualTypeButton"
+import PokemonSelectorButton from "./PokemonSelectorButton"
 
 export interface HubSelectorProps {
     radius: number,
@@ -15,7 +16,9 @@ export interface HubSelectorProps {
     battlePosition: BattlePositions,
     setBattlePosition: (battlePosition: BattlePositions) => void,
     parentMounted: boolean,
-    showDualTypeSelector: () => void
+    showDualTypeSelector: () => void,
+    selectedPokemon: Pokemon | null,
+    showPokemonSelector: () => void
 }
 
 const HubSelector = ({
@@ -25,7 +28,9 @@ const HubSelector = ({
     battlePosition,
     setBattlePosition,
     parentMounted,
-    showDualTypeSelector
+    showDualTypeSelector,
+    selectedPokemon,
+    showPokemonSelector
 }: HubSelectorProps) => {
 
     // State management to store old type for circular swipe transition
@@ -54,7 +59,7 @@ const HubSelector = ({
                 >
                 <div 
                     className={classNames(
-                        "absolute rounded-full h-full w-full z-10 border-4 origin-center border-slate-100 flex items-center justify-center transition-transform",
+                        "absolute rounded-full h-full w-full z-10 border-4 origin-center border-slate-100 dark:border-slate-800 flex items-center justify-center transition-transform",
                     )}>
 
                     {/* Transition overlay */}
@@ -92,28 +97,75 @@ const HubSelector = ({
                 { radius > 300 && (
 
                     <>
-                        <BattlePositionButton
-                            battlePosition={battlePosition}
+                        <div 
                             className={classNames(
-                                "absolute -bottom-1 left-0 coin-flip-container z-30",
+                                "w-0 z-40 absolute left-1/2 origin-bottom transition-transform",
+                                parentMounted ? "rotate-[235deg]" : "rotate-180"
                             )}
                             style={{
-                                height: `${radius * 0.1}px`,
-                                width: `${radius * 0.1}px`,
+                                height: `${radius * 0.18}px`
                             }}
-                            onClick={() => setBattlePosition(battlePosition === "to" ? "from" : "to")}
-                        />
-                        <DualTypeButton
-                            selectedType={selectedDualType}
-                            className={classNames(
-                                "absolute -bottom-1 right-0 z-30",
-                            )}
-                            style={{
-                                height: `${radius * 0.1}px`,
-                                width: `${radius * 0.1}px`,
-                            }}
-                            onClick={showDualTypeSelector}
+                            >
+                            <BattlePositionButton
+                                battlePosition={battlePosition}
+                                className={classNames(
+                                    "left-0 coin-flip-container z-30 -translate-x-1/2",
+                                    parentMounted ? "-rotate-[235deg]" : "-rotate-180"
+                                )}
+                                style={{
+                                    height: `${radius * 0.1}px`,
+                                    width: `${radius * 0.1}px`,
+                                }}
+                                onClick={() => setBattlePosition(battlePosition === "to" ? "from" : "to")}
                             />
+                        </div>
+                        { battlePosition === "from" && (
+                            <div 
+                                className={classNames(
+                                    "w-0 z-40 absolute left-1/2 origin-bottom transition-transform",
+                                    parentMounted ? "rotate-[125deg]" : "rotate-180"
+                                )}
+                                style={{
+                                    height: `${radius * 0.18}px`
+                                }}
+                                >
+                                <DualTypeButton
+                                    selectedType={selectedDualType}
+                                    className={classNames(
+                                        "-translate-x-1/2 left-0 z-30",
+                                        parentMounted ? "-rotate-[125deg]" : "-rotate-180"
+                                    )}
+                                    style={{
+                                        height: `${radius * 0.1}px`,
+                                        width: `${radius * 0.1}px`,
+                                    }}
+                                    onClick={showDualTypeSelector}
+                                    />
+                            </div>
+                        )}
+                        <div 
+                            className={classNames(
+                                "w-0 z-40 absolute left-1/2 origin-bottom transition-transform",
+                                parentMounted ? battlePosition === "from" ? "rotate-180" : "rotate-[125deg]" : "rotate-180"
+                            )}
+                            style={{
+                                height: `${radius * 0.18}px`
+                            }}
+                            >
+                            <PokemonSelectorButton
+                                selectedPokemon={selectedPokemon}
+                                className={classNames(
+                                    "-translate-x-1/2 left-0 z-30",
+                                    parentMounted ? battlePosition === "from" ? "-rotate-180" : "-rotate-[125deg]" : "-rotate-180"
+
+                                )}
+                                style={{
+                                    height: `${radius * 0.1}px`,
+                                    width: `${radius * 0.1}px`,
+                                }}
+                                onClick={showPokemonSelector}
+                                />
+                        </div>
                     </>
                 )}
             </div>

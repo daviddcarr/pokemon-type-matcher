@@ -1,4 +1,5 @@
-import pokeTypes, { PokeTypeData } from "@data/types"
+import ALL_POKE_TYPES from "@data/types"
+import { PokeTypeData } from "@lib/types"
 
 import TypeIcon from "@components/TypeIcon"
 
@@ -15,7 +16,7 @@ const DualTypeSelector = ({
         <>
             <div className="absolute inset-0 w-full h-full grid grid-cols-2 z-40">
                 {
-                    pokeTypes.map((type, i) => (
+                    ALL_POKE_TYPES.map((type, i) => (
                         <button 
                             className="w-full h-full flex items-center justify-center"
                             onClick={() => onChange(type)}

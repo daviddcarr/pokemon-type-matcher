@@ -27,10 +27,10 @@ const BattlePositionButton = ({
                 transform: battlePosition === "to" ? "rotateY(0deg)" : "rotateY(180deg)"
                 }}
                 >
-                <div className="coin-face face-front h-full w-full bg-red-400 rounded-full border-4 border-slate-100 pointer-events-auto flex items-center justify-center">
+                <div className="coin-face face-front h-full w-full bg-red-400 rounded-full border-4 border-slate-100 dark:border-slate-800 pointer-events-auto flex items-center justify-center">
                 <GiCrossedSwords className="text-white text-[100%]" />
                 </div>
-                <div className="coin-face face-back rotate h-full w-full bg-blue-400 rounded-full border-4 border-slate-100 pointer-events-auto flex items-center justify-center">
+                <div className="coin-face face-back rotate h-full w-full bg-blue-400 rounded-full border-4 border-slate-100 dark:border-slate-800 pointer-events-auto flex items-center justify-center">
                 <GiVibratingShield className="text-white text-[100%]" />
                 </div>
             </div>
