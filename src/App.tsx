@@ -2,16 +2,19 @@ import { useState, useRef, useEffect } from "react"
 
 import pokeTypes, { PokeTypeData } from "@data/types"
 import BattlePositionButton from "@components/HubSelector/BattlePositionButton"
+import DualTypeButton from "@components/HubSelector/DualTypeButton"
 import { BattlePositions } from "@lib/types"
 import TypeCircle from "@components/TypeCircle"
 import HubSelector from "@components/HubSelector"
 import Pointers from "@components/Pointers"
+import DualTypeSelector from "@components/DualTypeSelector"
 
 function App() {
 
   const [ selectedType, setSelectedType] = useState<PokeTypeData>(pokeTypes[0])
-  const [ selectedSecondaryType, setSelectedSecondaryType] = useState<PokeTypeData|null>(null)
+  const [ selectedDualType, setSelectedDualType] = useState<PokeTypeData|null>(pokeTypes[1])
   const [ battlePosition, setBattlePosition] = useState<BattlePositions>("to")
+  const [ showDualTypeSelector, setShowDualTypeSelector ] = useState(false)
 
 
   // Resize observer to control scale of type circle
@@ -44,6 +47,8 @@ function App() {
 
   return (
     <main className="absolute inset-0 h-full w-full bg-slate-100">
+
+
       <div className="relative w-full grid grid-rows-[1fr_auto] h-full">
         <div className="relative w-full flex items-center justify-center p-4">
           <div 
@@ -65,31 +70,14 @@ function App() {
                   battlePosition={battlePosition}
                   setBattlePosition={setBattlePosition}
                   parentMounted={componentMounted}
+                  selectedDualType={selectedDualType}
+                  showDualTypeSelector={() => setShowDualTypeSelector(true)}
                 />
               </div>
 
               {/* Pointers */}
               <div className="w-full h-full absolute inset-0 pointer-events-none z-10">
-                  
-                {/* <div className="absolute left-1/2 top-1/2 w-0 h-0 ">
-                      {
-                        DAMAGE_TYPES.map((damageType, damageIndex) => {
-                          const damage_index: DamageRelationKey = `${damageType}_damage_${battlePosition}` as DamageRelationKey
-                          const matchingTypes: PokeType[] = selectedType.damage_relations[damage_index]
-
-                          return matchingTypes.map((type, index) => {
-                            return (<Pointer 
-                              key={`${damageIndex}_${index}`}
-                              type={getDataFromType(type)}
-                              radius={radius}
-                              position={battlePosition}
-                              damageType={damageType}
-                              parentMounted={componentMounted}
-                              />
-                          )})
-                        })
-                      }
-                </div> */}
+                
                 <Pointers
                   radius={radius}
                   selectedType={selectedType}
@@ -115,15 +103,34 @@ function App() {
         <div className="relative w-full flex items-center justify-center p-4">
           {
             radius <= 300 && (
-              <BattlePositionButton
-                battlePosition={battlePosition}
-                className="h-16 w-16" 
-                onClick={() => setBattlePosition(battlePosition === "to" ? "from" : "to")}
-                />
+              <>
+                <BattlePositionButton
+                  battlePosition={battlePosition}
+                  className="h-16 w-16" 
+                  onClick={() => setBattlePosition(battlePosition === "to" ? "from" : "to")}
+                  />
+                <DualTypeButton
+                  selectedType={selectedDualType}
+                  className="h-16 w-16" 
+                  onClick={() => setShowDualTypeSelector(true)}
+                  />
+              </>
             )
           }
         </div>
       </div>
+
+      {
+        showDualTypeSelector && (
+          <DualTypeSelector
+            onChange={(type: PokeTypeData | null) => {
+              setSelectedDualType(type)
+              setShowDualTypeSelector(false)
+            }}
+            />
+        )
+      }
+
     </main>
   )
 }

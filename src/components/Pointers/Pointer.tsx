@@ -11,7 +11,8 @@ export type PointerProps = {
     radius: number,
     position: BattlePositions,
     damageType: DamageTypes,
-    parentMounted: boolean
+    parentMounted: boolean,
+    isDouble?: boolean
 }
 
 const COLOR_MAP: Record<DamageTypes, string> = {
@@ -20,7 +21,7 @@ const COLOR_MAP: Record<DamageTypes, string> = {
     "no": "#000000"
 }
 
-const Pointer = ({ type, radius, position, damageType, parentMounted }: PointerProps) => {
+const Pointer = ({ type, radius, position, damageType, parentMounted, isDouble }: PointerProps) => {
 
     return (
          <div 
@@ -53,8 +54,8 @@ const Pointer = ({ type, radius, position, damageType, parentMounted }: PointerP
                             }}
                             >
                             {
-                                damageType === "double" ? 'x2' :
-                                damageType === "half" ? 'x0.5' :
+                                damageType === "double" ? isDouble ? 'x4' : 'x2' :
+                                damageType === "half" ? isDouble ? 'x0.25' : 'x0.5' :
                                 'x0'
                             }
                         </div>
@@ -70,14 +71,16 @@ const Pointer = ({ type, radius, position, damageType, parentMounted }: PointerP
                                             fontSize: `${radius * 0.1}px`,
                                         }}
                                         />
-                                    {/* <GiPlayButton
-                                        className="relative pointer-events-none"
-                                        style={{
-                                            transform: position === "to" ? "translateX(-50%) rotate(-90deg)" : "translateX(-50%) rotate(90deg)",
-                                            color: COLOR_MAP[damageType],
-                                            fontSize: `${radius * 0.1}px`,
-                                        }}
-                                        /> */}
+                                    { isDouble && (
+                                        <GiPlayButton
+                                            className="relative pointer-events-none"
+                                            style={{
+                                                transform: position === "to" ? "translateX(-50%) rotate(-90deg)" : "translateX(-50%) rotate(90deg)",
+                                                color: COLOR_MAP[damageType],
+                                                fontSize: `${radius * 0.1}px`,
+                                            }}
+                                        />
+                                    )} 
                                 </>
                             ) : (
                                 <GiCancel

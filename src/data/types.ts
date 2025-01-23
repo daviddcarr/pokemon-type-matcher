@@ -8,7 +8,20 @@ export type DamageRelationKey =
     "no_damage_from" |
     "no_damage_to"
 
+export type DualDamageRelationKey =
+    "quadruple_damage_from" |
+    "quadruple_damage_to" |
+    "double_damage_from" |
+    "double_damage_to" |
+    "half_damage_from" |
+    "half_damage_to" |
+    "quarter_damage_from" |
+    "quarter_damage_to" |
+    "no_damage_from" |
+    "no_damage_to"
+
 type PokeDamageRelations = Record<DamageRelationKey, PokeType[]>
+export type DualPokeDamageRelations = Record<DualDamageRelationKey, PokeType[]>
 
 export type PokeTypeData = {
     id: number,
