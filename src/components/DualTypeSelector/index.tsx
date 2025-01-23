@@ -32,7 +32,7 @@ const DualTypeSelector = ({
                         </button>
                     ))
                 }
-                <button className="col-span-2 w-full h-full flex items-center justify-center"
+                <button className="col-span-2 w-full h-full flex items-center justify-center bg-white"
                     onClick={() => onChange(null)}
                     >
                     None

@@ -1,7 +1,7 @@
 import classNames from "classnames"
 import { useState, useRef, useEffect } from "react"
 
-import pokeTypes, { PokeTypeData } from "@data/types"
+import ALL_POKE_TYPES, { PokeTypeData } from "@data/types"
 import { BattlePositions } from "@lib/types"
 
 import TypeIcon from "@components/TypeIcon"
@@ -81,7 +81,7 @@ const HubSelector = ({
                         )}
                         style={{
                             backgroundColor: selectedType.color,
-                            transitionDelay: `${pokeTypes.length * 10}ms`,
+                            transitionDelay: `${ALL_POKE_TYPES.length * 10}ms`,
                         }}
                         >
                         <TypeIcon type={selectedType.name} className="w-1/2 h-1/2 object-contain" />

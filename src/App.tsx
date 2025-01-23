@@ -81,6 +81,7 @@ function App() {
                 <Pointers
                   radius={radius}
                   selectedType={selectedType}
+                  selectedDualType={selectedDualType}
                   battlePosition={battlePosition}
                   parentMounted={componentMounted}
                   />
@@ -100,7 +101,7 @@ function App() {
             </div>
           </div>
         </div>
-        <div className="relative w-full flex items-center justify-center p-4">
+        <div className="relative w-full flex items-center justify-center p-4 z-0">
           {
             radius <= 300 && (
               <>
@@ -124,7 +125,10 @@ function App() {
         showDualTypeSelector && (
           <DualTypeSelector
             onChange={(type: PokeTypeData | null) => {
-              setSelectedDualType(type)
+              if (type !== selectedType)
+                setSelectedDualType(type)
+              else 
+                setSelectedDualType(null)
               setShowDualTypeSelector(false)
             }}
             />
