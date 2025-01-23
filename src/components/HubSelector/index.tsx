@@ -1,26 +1,31 @@
 import classNames from "classnames"
 import { useState, useRef, useEffect } from "react"
 
-import pokeTypes, { PokeTypeData } from "@data/types"
+import ALL_POKE_TYPES, { PokeTypeData } from "@data/types"
 import { BattlePositions } from "@lib/types"
 
 import TypeIcon from "@components/TypeIcon"
 import BattlePositionButton from "@components/HubSelector/BattlePositionButton"
+import DualTypeButton from "@components/HubSelector/DualTypeButton"
 
 export interface HubSelectorProps {
     radius: number,
     selectedType: PokeTypeData,
+    selectedDualType: PokeTypeData | null,
     battlePosition: BattlePositions,
     setBattlePosition: (battlePosition: BattlePositions) => void,
-    parentMounted: boolean
+    parentMounted: boolean,
+    showDualTypeSelector: () => void
 }
 
 const HubSelector = ({
     radius,
     selectedType,
+    selectedDualType,
     battlePosition,
     setBattlePosition,
-    parentMounted
+    parentMounted,
+    showDualTypeSelector
 }: HubSelectorProps) => {
 
     // State management to store old type for circular swipe transition
@@ -76,7 +81,7 @@ const HubSelector = ({
                         )}
                         style={{
                             backgroundColor: selectedType.color,
-                            transitionDelay: `${pokeTypes.length * 10}ms`,
+                            transitionDelay: `${ALL_POKE_TYPES.length * 10}ms`,
                         }}
                         >
                         <TypeIcon type={selectedType.name} className="w-1/2 h-1/2 object-contain" />
@@ -85,17 +90,31 @@ const HubSelector = ({
                 </div>
 
                 { radius > 300 && (
-                    <BattlePositionButton
-                        battlePosition={battlePosition}
-                        className={classNames(
-                            "absolute -bottom-1 left-0 coin-flip-container z-30",
-                        )}
-                        style={{
-                            height: `${radius * 0.1}px`,
-                            width: `${radius * 0.1}px`,
-                        }}
-                        onClick={() => setBattlePosition(battlePosition === "to" ? "from" : "to")}
-                    />
+
+                    <>
+                        <BattlePositionButton
+                            battlePosition={battlePosition}
+                            className={classNames(
+                                "absolute -bottom-1 left-0 coin-flip-container z-30",
+                            )}
+                            style={{
+                                height: `${radius * 0.1}px`,
+                                width: `${radius * 0.1}px`,
+                            }}
+                            onClick={() => setBattlePosition(battlePosition === "to" ? "from" : "to")}
+                        />
+                        <DualTypeButton
+                            selectedType={selectedDualType}
+                            className={classNames(
+                                "absolute -bottom-1 right-0 z-30",
+                            )}
+                            style={{
+                                height: `${radius * 0.1}px`,
+                                width: `${radius * 0.1}px`,
+                            }}
+                            onClick={showDualTypeSelector}
+                            />
+                    </>
                 )}
             </div>
         </>

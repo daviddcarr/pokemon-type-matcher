@@ -1,4 +1,23 @@
-export type PokeType = "normal" | "fire" | "water" | "electric" | "grass" | "ice" | "fighting" | "poison" | "ground" | "flying" | "psychic" | "bug" | "rock" | "ghost" | "dragon" | "dark" | "steel" | "fairy"
+export const POKE_TYPE_NAMES = [
+    "normal",
+    "fire",
+    "water",
+    "electric",
+    "grass",
+    "ice",
+    "fighting",
+    "poison",
+    "ground",
+    "flying",
+    "psychic",
+    "bug",
+    "rock",
+    "ghost",
+    "dragon",
+    "dark",
+    "steel",
+    "fairy"]
+export type PokeType = typeof POKE_TYPE_NAMES[number]
 
 export type DamageRelationKey = 
     "double_damage_from" |
@@ -8,7 +27,15 @@ export type DamageRelationKey =
     "no_damage_from" |
     "no_damage_to"
 
+export type DualDamageRelationKey =
+    "quadruple_damage_from" |
+    "double_damage_from" |
+    "half_damage_from" |
+    "quarter_damage_from" |
+    "no_damage_from"
+
 type PokeDamageRelations = Record<DamageRelationKey, PokeType[]>
+export type DualPokeDamageRelations = Record<DualDamageRelationKey, PokeType[]>
 
 export type PokeTypeData = {
     id: number,
@@ -17,7 +44,21 @@ export type PokeTypeData = {
     damage_relations: PokeDamageRelations
 }
 
-const pokeTypes: PokeTypeData[] = [
+export const getSingleTypeMultiplier = (defender: PokeTypeData, attacker: PokeTypeData): number => {
+    if (defender.damage_relations.no_damage_from.includes(attacker.name)) {
+        return 0
+    }
+    if (defender.damage_relations.double_damage_from.includes(attacker.name)) {
+        return 2
+    }
+    if (defender.damage_relations.half_damage_from.includes(attacker.name)) {
+        return 0.5
+    }
+    return 1
+}
+
+
+const ALL_POKE_TYPES: PokeTypeData[] = [
     {
         "id": 1,
         "name": "normal",
@@ -253,12 +294,42 @@ const pokeTypes: PokeTypeData[] = [
         }
     }
 ]
-export default pokeTypes
+export default ALL_POKE_TYPES
 
 export const getDataFromType = (type: PokeType): PokeTypeData => {
-    return pokeTypes.find(t => t.name === type) ?? pokeTypes[0]
+    return ALL_POKE_TYPES.find(t => t.name === type) ?? ALL_POKE_TYPES[0]
 }
 
 export const getIdFromType = (type: PokeType): number => {
     return getDataFromType(type).id
+}
+
+export const combineDualTypes = (primary: PokeTypeData, secondary: PokeTypeData): DualPokeDamageRelations => {
+    const result: DualPokeDamageRelations ={
+        "quadruple_damage_from": [],
+        "double_damage_from": [],
+        "half_damage_from": [],
+        "quarter_damage_from": [],
+        "no_damage_from": []
+    }
+
+    ALL_POKE_TYPES.forEach((attackingType) => {
+        const multiplierA = getSingleTypeMultiplier(primary, attackingType)
+        const multiplierB = getSingleTypeMultiplier(secondary, attackingType)
+        const finalMultiplier = multiplierA * multiplierB
+
+        if (finalMultiplier === 4) {
+            result.quadruple_damage_from.push(attackingType.name)
+        } else if (finalMultiplier === 2) {
+            result.double_damage_from.push(attackingType.name)
+        } else if (finalMultiplier === 0.5) {
+            result.half_damage_from.push(attackingType.name)
+        } else if (finalMultiplier === 0.25) {
+            result.quarter_damage_from.push(attackingType.name)
+        } else if (finalMultiplier === 0) {
+            result.no_damage_from.push(attackingType.name)
+        }
+    })
+
+    return result
 }

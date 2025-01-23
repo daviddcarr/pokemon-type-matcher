@@ -1,7 +1,7 @@
 import classNames from "classnames"
 import { useEffect, useState } from "react"
 
-import pokeTypes, { PokeTypeData } from "@data/types"
+import ALL_POKE_TYPES, { PokeTypeData } from "@data/types"
 import Slice from "./Slice"
 
 export interface TypeCircleProps {
@@ -22,7 +22,7 @@ const TypeCircle = ({
         setComponentMounted(true);
     }, []);
 
-    return pokeTypes.map((type, index) => {
+    return ALL_POKE_TYPES.map((type, index) => {
         return (
           <div 
             className="circle origin-bottom absolute left-1/2 transition-transform" 
