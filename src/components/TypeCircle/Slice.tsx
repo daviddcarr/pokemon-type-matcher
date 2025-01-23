@@ -1,5 +1,5 @@
-import { getIdFromType, PokeTypeData } from "../data/types"
-import TypeIcon from "./TypeIcon"
+import { getIdFromType, PokeTypeData } from "@data/types"
+import TypeIcon from "@components/TypeIcon"
 
 export type SliceProps = {
     type: PokeTypeData,

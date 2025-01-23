@@ -1,6 +1,6 @@
-import { BattlePositions } from "../lib/types"
-
 import { GiCrossedSwords, GiVibratingShield } from "react-icons/gi";
+
+import { BattlePositions } from "@lib/types"
 
 interface BattlePositionButtonProps {
     battlePosition: BattlePositions

@@ -1,14 +1,17 @@
 import classNames from "classnames"
-import { PokeTypeData } from "../data/types"
-import { getIdFromType } from "../data/types"
-import { BattlePositions, DamageTypes } from "../lib/types"
 import { GiPlayButton, GiCancel } from "react-icons/gi";
+
+import pokeTypes, { PokeTypeData } from "@data/types"
+import { getIdFromType } from "@data/types"
+import { BattlePositions, DamageTypes } from "@lib/types"
+
 
 export type PointerProps = {
     type: PokeTypeData,
     radius: number,
     position: BattlePositions,
-    damageType: DamageTypes
+    damageType: DamageTypes,
+    parentMounted: boolean
 }
 
 const COLOR_MAP: Record<DamageTypes, string> = {
@@ -17,19 +20,30 @@ const COLOR_MAP: Record<DamageTypes, string> = {
     "no": "#000000"
 }
 
-const Pointer = ({ type, radius, position, damageType }: PointerProps) => {
+const Pointer = ({ type, radius, position, damageType, parentMounted }: PointerProps) => {
+
     return (
          <div 
             className={classNames(
                 "w-0 absolute bottom-full origin-bottom transition-transform pointer-events-none"
             )} 
             style={{ 
+                perspective: "1000px",
                 height: `${radius * 0.8}px`,
                 transform: `rotate(${ (getIdFromType(type.name) - 1) * 20}deg)`,
                 }}>
-                    <div className="">
+                    <div
+                        className={classNames(
+                            "coin-flip-inner transition-transform"
+                        )}
+                        style={{
+                            transformStyle: "preserve-3d",
+                            position: "relative",
+                            transform: parentMounted ? "rotateY(0deg)" : "rotateY(90deg)",
+                            transitionDelay: `${(pokeTypes.length + 10) * 10}ms`,
+                        }}>
                         <div 
-                            className="rounded-full bg-white font-bold flex items-center justify-center"
+                            className="rounded-full bg-white font-bold flex items-center justify-center pointer-events-none"
                             style={{
                                 width: `${radius * 0.1}px`,
                                 height: `${radius * 0.1}px`,
@@ -45,36 +59,36 @@ const Pointer = ({ type, radius, position, damageType }: PointerProps) => {
                             }
                         </div>
 
-                    {
-                        damageType !== "no" ? (
-                            <>
-                                <GiPlayButton
-                                    className="relative"
+                        {
+                            damageType !== "no" ? (
+                                <>
+                                    <GiPlayButton
+                                        className="relative pointer-events-none"
+                                        style={{
+                                            transform: position === "to" ? "translateX(-50%) rotate(-90deg)" : "translateX(-50%) rotate(90deg)",
+                                            color: COLOR_MAP[damageType],
+                                            fontSize: `${radius * 0.1}px`,
+                                        }}
+                                        />
+                                    {/* <GiPlayButton
+                                        className="relative pointer-events-none"
+                                        style={{
+                                            transform: position === "to" ? "translateX(-50%) rotate(-90deg)" : "translateX(-50%) rotate(90deg)",
+                                            color: COLOR_MAP[damageType],
+                                            fontSize: `${radius * 0.1}px`,
+                                        }}
+                                        /> */}
+                                </>
+                            ) : (
+                                <GiCancel
+                                    className="relative pointer-events-none -translate-x-1/2 translate-y-1 "
                                     style={{
-                                        transform: position === "to" ? "translateX(-50%) rotate(-90deg)" : "translateX(-50%) rotate(90deg)",
                                         color: COLOR_MAP[damageType],
                                         fontSize: `${radius * 0.1}px`,
                                     }}
                                     />
-                                <GiPlayButton
-                                    className="relative"
-                                    style={{
-                                        transform: position === "to" ? "translateX(-50%) rotate(-90deg)" : "translateX(-50%) rotate(90deg)",
-                                        color: COLOR_MAP[damageType],
-                                        fontSize: `${radius * 0.1}px`,
-                                    }}
-                                    />
-                            </>
-                        ) : (
-                            <GiCancel
-                                className="relative -translate-x-1/2 translate-y-1 "
-                                style={{
-                                    color: COLOR_MAP[damageType],
-                                    fontSize: `${radius * 0.1}px`,
-                                }}
-                                />
-                        )
-                    }
+                            )
+                        }
                     </div>
         </div>
     )
