@@ -20,3 +20,12 @@
 .coin-face.face-back {
   transform: rotateY(180deg) translateZ(-1px);
 }
+
+@keyframes overlayRadial {
+  from {
+    clip-path: circle(100% at 50% 50%);
+  }
+  to {
+    clip-path: circle(0% at 50% 50%);
+  }
+}

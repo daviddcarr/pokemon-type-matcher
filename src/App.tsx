@@ -1,11 +1,11 @@
 import { useState, useRef, useEffect } from "react"
 
-import pokeTypes, { PokeTypeData, DamageRelationKey, PokeType, getDataFromType } from "./data/types"
-import Pointer from "./components/Pointer"
+import pokeTypes, { PokeTypeData } from "@data/types"
 import BattlePositionButton from "@components/HubSelector/BattlePositionButton"
-import { BattlePositions, DAMAGE_TYPES } from "./lib/types"
+import { BattlePositions } from "@lib/types"
 import TypeCircle from "@components/TypeCircle"
 import HubSelector from "@components/HubSelector"
+import Pointers from "@components/Pointers"
 
 function App() {
 
@@ -71,8 +71,7 @@ function App() {
               {/* Pointers */}
               <div className="w-full h-full absolute inset-0 pointer-events-none z-10">
                   
-                <div className="absolute left-1/2 top-1/2 w-0 h-0 ">
-                  {/* Pointer Map */}
+                {/* <div className="absolute left-1/2 top-1/2 w-0 h-0 ">
                       {
                         DAMAGE_TYPES.map((damageType, damageIndex) => {
                           const damage_index: DamageRelationKey = `${damageType}_damage_${battlePosition}` as DamageRelationKey
@@ -90,7 +89,13 @@ function App() {
                           )})
                         })
                       }
-                </div>
+                </div> */}
+                <Pointers
+                  radius={radius}
+                  selectedType={selectedType}
+                  battlePosition={battlePosition}
+                  parentMounted={componentMounted}
+                  />
 
               </div>
 
