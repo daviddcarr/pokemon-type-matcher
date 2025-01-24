@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react"
+import classNames from "classnames"
 
 import pokeTypes from "@data/types"
 import BattlePositionButton from "@components/HubSelector/BattlePositionButton"
@@ -52,6 +53,7 @@ function App() {
   // Change Handlers
   const handleTypeSelect = (type: PokeTypeData) => {
     setSelectedType(type)
+    if (selectedDualType === type) setSelectedDualType(null)
     if (selectedPokemon?.types[0] !== type.name) {
       setSelectedPokemon(null)
     }
@@ -102,12 +104,9 @@ function App() {
                   radius={radius}
                   selectedType={selectedType}
                   battlePosition={battlePosition}
-                  setBattlePosition={setBattlePosition}
                   parentMounted={componentMounted}
                   selectedDualType={selectedDualType}
                   showDualTypeSelector={() => setShowDualTypeSelector(true)}
-                  selectedPokemon={selectedPokemon}
-                  showPokemonSelector={() => setShowPokemonSelector(true)}
                 />
               </div>
 
@@ -135,50 +134,61 @@ function App() {
             </div>
           </div>
         </div>
-        <div className="relative w-full flex items-center justify-center p-4 z-0">
-          {
-            radius <= 300 && (
-              <>
-                <BattlePositionButton
-                  battlePosition={battlePosition}
-                  className="h-16 w-16" 
-                  onClick={() => setBattlePosition(battlePosition === "to" ? "from" : "to")}
-                  />
-                <PokemonSelectorButton
-                  selectedPokemon={selectedPokemon}
-                  className="h-16 w-16" 
-                  onClick={() => setShowPokemonSelector(true)}
-                  />
-                {
-                  battlePosition === "from" && (
-                    <DualTypeButton
-                      selectedType={selectedDualType}
-                      className="h-16 w-16" 
-                      onClick={() => setShowDualTypeSelector(true)}
-                      />
-                  )
-                }
-              </>
-            )
-          }
+        <div className={classNames(
+          "relative w-full flex items-center justify-between sm:justify-center p-4 z-0 bg-slate-200 dark:bg-slate-900"
+          )}
+          >
+            <div className="flex">
+              <PokemonSelectorButton
+                selectedPokemon={selectedPokemon}
+                className="h-16 w-16" 
+                onClick={() => setShowPokemonSelector(true)}
+                />
+                { battlePosition === "from" && (
+                  <DualTypeButton
+                    selectedType={selectedDualType}
+                    className="h-16 w-16 sm:hidden" 
+                    onClick={() => setShowDualTypeSelector(true)}
+                    />
+                )}
+              </div>
+              <BattlePositionButton
+                battlePosition={battlePosition}
+                className="h-16 w-16" 
+                onClick={() => setBattlePosition(battlePosition === "to" ? "from" : "to")}
+                />
+
+
         </div>
       </div>
 
       {
-        showDualTypeSelector && (
-          <DualTypeSelector
-            onChange={handleDualTypeSelect}
-            />
+        (showDualTypeSelector || showPokemonSelector) && (
+          <div className="absolute inset-0 bg-slate-100 dark:bg-slate-800 bg-opacity-60 z-10 flex items-center justify-center z-40">
+
+              {
+                showDualTypeSelector && (
+                  <div className="w-full h-full md:max-w-80 md:max-h-[80vh] relative md:rounded-md overflow-hidden">
+                    <DualTypeSelector
+                      onChange={handleDualTypeSelect}
+                      />
+                  </div>
+                )
+              }
+        
+              {
+                showPokemonSelector && (
+                  <div className="w-full h-full md:max-w-[80vw] md:max-h-[80vh] relative">
+                    <PokemonSelector 
+                      onChange={handlePokemonSelect}
+                      />
+                  </div>
+                )
+              }
+          </div>
         )
       }
 
-      {
-        showPokemonSelector && (
-          <PokemonSelector 
-            onChange={handlePokemonSelect}
-            />
-        )
-      }
 
     </main>
   )

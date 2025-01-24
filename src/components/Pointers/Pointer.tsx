@@ -14,18 +14,18 @@ export type PointerProps = {
 }
 
 const COLOR_MAP: Record<DualDamageTypes, string> = {
-    "quadruple": "#00BF00",
-    "double": "#00BF00",
-    "half": "#7E1C00",
-    "quarter": "#7E1C00",
-    "no": "#000000"
+    "quadruple": "text-[#9dea9d] dark:text-[#0c5f0c]",
+    "double": "text-[#9dea9d] dark:text-[#0c5f0c]",
+    "half": "text-[#ff3b00] dark:text-[#6b1800]",
+    "quarter": "text-[#ff3b00] dark:text-[#6b1800]",
+    "no": "text-[#000000]"
 }
 
 const TEXT_COLOR_MAP: Record<DualDamageTypes, string> = {
     "quadruple": "text-[#00BF00] dark:text-[#00FF00]",
     "double": "text-[#00BF00] dark:text-[#00FF00]",
-    "half": "text-[#7E1C00] dark:text-[#FF4444]",
-    "quarter": "text-[#7E1C00] dark:text-[#FF4444]",
+    "half": "text-[#7E1C00] dark:text-[#ff8d8d]",
+    "quarter": "text-[#7E1C00] dark:text-[#ff8d8d]",
     "no": "text-[#000000] dark:text-[#FFFFFF]"
 }
 
@@ -76,19 +76,23 @@ const Pointer = ({ type, radius, position, damageType, parentMounted }: PointerP
                             damageType !== "no" ? (
                                 <>
                                     <GiPlayButton
-                                        className="relative pointer-events-none"
+                                        className={classNames(
+                                            "relative pointer-events-none",
+                                            COLOR_MAP[damageType]
+                                        )}
                                         style={{
-                                            transform: position === "to" ? "translateX(-50%) rotate(-90deg)" : "translateX(-50%) rotate(90deg)",
-                                            color: COLOR_MAP[damageType],
+                                            transform: `translateX(-50%) ${position === "to" ? "rotate(-90deg)" : "rotate(90deg)"}`,
                                             fontSize: `${radius * 0.1}px`,
                                         }}
                                         />
                                     { (damageType === "quadruple" || damageType === "quarter") && (
                                         <GiPlayButton
-                                            className="relative pointer-events-none"
+                                            className={classNames(
+                                                "relative pointer-events-none",
+                                                COLOR_MAP[damageType]
+                                            )}
                                             style={{
                                                 transform: position === "to" ? "translateX(-50%) translateY(-60%) rotate(-90deg)" : "translateX(-50%) translateY(-60%) rotate(90deg)",
-                                                color: COLOR_MAP[damageType],
                                                 fontSize: `${radius * 0.1}px`,
                                             }}
                                         />
@@ -96,9 +100,11 @@ const Pointer = ({ type, radius, position, damageType, parentMounted }: PointerP
                                 </>
                             ) : (
                                 <GiCancel
-                                    className="relative pointer-events-none -translate-x-1/2 translate-y-1"
+                                    className={classNames(
+                                        "relative pointer-events-none -translate-x-1/2 translate-y-1",
+                                        COLOR_MAP[damageType]
+                                    )}
                                     style={{
-                                        color: COLOR_MAP[damageType],
                                         fontSize: `${radius * 0.1}px`,
                                     }}
                                     />
