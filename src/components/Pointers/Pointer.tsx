@@ -87,7 +87,7 @@ const Pointer = ({ type, radius, position, damageType, parentMounted }: PointerP
                                         <GiPlayButton
                                             className="relative pointer-events-none"
                                             style={{
-                                                transform: position === "to" ? "translateX(-50%) translateY(-20px) rotate(-90deg)" : "translateX(-50%) translateY(-20px) rotate(90deg)",
+                                                transform: position === "to" ? "translateX(-50%) translateY(-60%) rotate(-90deg)" : "translateX(-50%) translateY(-60%) rotate(90deg)",
                                                 color: COLOR_MAP[damageType],
                                                 fontSize: `${radius * 0.1}px`,
                                             }}
