@@ -1,26 +1,24 @@
 import { GiCrossedSwords, GiVibratingShield } from "react-icons/gi";
 
-import { BattlePositions } from "@lib/types"
+import useApp from "@lib/useApp"
 
 interface BattlePositionButtonProps {
-    battlePosition: BattlePositions
     className?: string
     style?: React.CSSProperties
-    onClick?: () => void
 }
 
 const BattlePositionButton = ({
-    battlePosition,
     className,
     style,
-    onClick
 }: BattlePositionButtonProps) => {
+
+    const { battlePosition, setBattlePosition } = useApp()
 
     return (
         <button 
             className={className}
             style={style}
-            onClick={onClick}
+            onClick={() => setBattlePosition(battlePosition === "to" ? "from" : "to")}
             >
             <div className="coin-flip-inner w-full h-full transition-transform"
                 style={{

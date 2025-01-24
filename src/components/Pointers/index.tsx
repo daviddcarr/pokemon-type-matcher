@@ -1,9 +1,7 @@
 import { 
-    BattlePositions, 
     PokeType, 
     DamageRelationKey, 
     DualPokeDamageRelations,  
-    PokeTypeData, 
     DualDamageRelationKey
 } from "@lib/types"
 import { 
@@ -14,25 +12,23 @@ import {
 } from "@data/types"
 import Pointer from "@components/Pointers/Pointer"
 
+import useApp from "@lib/useApp"
+
 export interface PointersProps {
-    selectedType: PokeTypeData
-    selectedDualType?: PokeTypeData | null
     radius: number
-    battlePosition: BattlePositions
     parentMounted: boolean
 }
 
 const Pointers = ({
-    selectedType,
-    selectedDualType,
     radius,
-    battlePosition,
     parentMounted
 }: PointersProps) => {
 
+    const { selectedType, selectedDualType, battlePosition } = useApp()
+ 
     // If Defending and Dual Type has value
     if (battlePosition === "from" && selectedDualType && selectedType !== selectedDualType) {
-        let combined: DualPokeDamageRelations = combineDualTypes(selectedType, selectedDualType)
+        const combined: DualPokeDamageRelations = combineDualTypes(selectedType, selectedDualType)
 
         return (
             <div className="absolute left-1/2 top-1/2 w-0 h-0 ">

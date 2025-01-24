@@ -3,19 +3,20 @@ import { useEffect, useState } from "react"
 
 import ALL_POKE_TYPES from "@data/types"
 import { PokeTypeData } from "@lib/types"
+import useApp from "@lib/useApp"
 import Slice from "./Slice"
 
 export interface TypeCircleProps {
     radius: number
-    selectedType: PokeTypeData
     onChange: (type: PokeTypeData) => void
 }
 
 const TypeCircle = ({
     radius,
-    selectedType,
     onChange
 }: TypeCircleProps) => {
+
+    const { selectedType } = useApp()
 
     const [ componentMounted, setComponentMounted ] = useState(false);
 

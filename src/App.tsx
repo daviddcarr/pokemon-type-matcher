@@ -1,26 +1,35 @@
 import { useState, useRef, useEffect } from "react"
 import classNames from "classnames"
 
-import pokeTypes from "@data/types"
 import BattlePositionButton from "@components/HubSelector/BattlePositionButton"
 import TypeButton from "@components/HubSelector/TypeButton"
-import { BattlePositions, Pokemon, PokeTypeData } from "@lib/types"
+import { PokeTypeData } from "@lib/types"
 import TypeCircle from "@components/TypeCircle"
 import HubSelector from "@components/HubSelector"
 import Pointers from "@components/Pointers"
 import TypeSelector from "@components/TypeSelector"
 import PokemonSelector from "@components/PokemonSelector"
 import PokemonSelectorButton from "@components/HubSelector/PokemonSelectorButton"
+import LanguageSelector from "@components/LanguageSelector"
+
+import useApp from "@lib/useApp"
 
 function App() {
   // State Handlers, (Should probably move to singleton)
-  const [ selectedType, setSelectedType] = useState<PokeTypeData>(pokeTypes[0])
-  const [ selectedDualType, setSelectedDualType] = useState<PokeTypeData|null>(pokeTypes[1])
-  const [ battlePosition, setBattlePosition] = useState<BattlePositions>("to")
-  const [ showTypeSelector, setShowTypeSelector ] = useState(false)
-  const [ showDualTypeSelector, setShowDualTypeSelector ] = useState(false)
-  const [ showPokemonSelector, setShowPokemonSelector ] = useState(false)
-  const [ selectedPokemon, setSelectedPokemon ] = useState<Pokemon|null>(null)
+  const { 
+    selectedType,
+    selectedDualType,
+    showPokemonSelector, 
+    showTypeSelector, 
+    showDualTypeSelector,
+    battlePosition,
+    selectedPokemon,
+    setSelectedType,
+    setSelectedDualType,
+    setShowTypeSelector,
+    setShowDualTypeSelector,
+    setSelectedPokemon,
+  } = useApp()
 
   // Resize observer to control scale of type circle
   const [ radius, setRadius ] = useState<number>(2);
@@ -31,7 +40,6 @@ function App() {
     const handleResize = (entries: ResizeObserverEntry[]) => {
       for (const entry of entries) {
         const { width, height } = entry.contentRect;
-        console.log(width, height)
         setRadius(Math.min(width, height) * 0.4);
       }
     };
@@ -53,7 +61,6 @@ function App() {
 
   // Change Handlers
   const handleTypeSelect = (type: PokeTypeData | null) => {
-    console.log("type", type)
     if (type) {
       setSelectedType(type)
       if (selectedDualType === type) setSelectedDualType(null)
@@ -78,20 +85,17 @@ function App() {
     setShowDualTypeSelector(false)
   }
 
-  const handlePokemonSelect = (pokemon: Pokemon | null) => {
-    setSelectedPokemon(pokemon)
-    if (pokemon) {
-      setSelectedType(pokeTypes.find(type => type.name === pokemon.types[0])!)
-      setSelectedDualType(pokeTypes.find(type => type.name === pokemon.types[1]) || null)
-    }
-    setShowPokemonSelector(false)
-  }
-
   return (
     <main className="absolute inset-0 h-full w-full bg-slate-100 dark:bg-slate-800">
 
 
-      <div className="relative w-full grid grid-rows-[1fr_auto] h-full">
+      <div className="relative w-full grid grid-rows-[auto_1fr_auto] h-full">
+
+        <div className="relative w-full flex items-center justify-between p-4 z-0 bg-slate-200 dark:bg-slate-900">
+          <LanguageSelector />
+        </div>
+
+
         <div className="relative w-full flex items-center justify-center p-4">
           <div 
             ref={containerRef}
@@ -107,11 +111,7 @@ function App() {
               <div className="w-full h-full absolute inset-0 pointer-events-none">
                 <HubSelector
                   radius={radius}
-                  selectedType={selectedType}
-                  battlePosition={battlePosition}
                   parentMounted={componentMounted}
-                  selectedDualType={selectedDualType}
-                  showDualTypeSelector={() => setShowDualTypeSelector(true)}
                 />
               </div>
 
@@ -119,9 +119,6 @@ function App() {
               <div className="w-full h-full absolute inset-0 pointer-events-none z-10">
                 <Pointers
                   radius={radius}
-                  selectedType={selectedType}
-                  selectedDualType={selectedDualType}
-                  battlePosition={battlePosition}
                   parentMounted={componentMounted}
                   />
               </div>
@@ -130,7 +127,6 @@ function App() {
               <div className="w-full h-full absolute inset-0 pointer-events-none">
                 <TypeCircle
                   radius={radius}
-                  selectedType={selectedType}
                   onChange={handleTypeSelect}
                   />
               </div>
@@ -139,18 +135,14 @@ function App() {
             </div>
           </div>
         </div>
+
         <div className={classNames(
           "relative w-full flex items-center justify-between p-4 z-0 bg-slate-200 dark:bg-slate-900"
           )}
           >
             <div className="flex">
               <PokemonSelectorButton
-                selectedPokemon={selectedPokemon}
                 className="h-16 w-16" 
-                onClick={() => {
-                  console.log("Hello world")
-                  setShowPokemonSelector(true)
-                }}
                 />
 
               <TypeButton
@@ -167,9 +159,7 @@ function App() {
                 )}
               </div>
               <BattlePositionButton
-                battlePosition={battlePosition}
                 className="h-16 w-16" 
-                onClick={() => setBattlePosition(battlePosition === "to" ? "from" : "to")}
                 />
 
 
@@ -178,7 +168,7 @@ function App() {
 
       {
         (showTypeSelector || showDualTypeSelector || showPokemonSelector) && (
-          <div className="absolute inset-0 bg-slate-100 dark:bg-slate-800 bg-opacity-60 z-10 flex items-center justify-center z-40">
+          <div className="absolute inset-0 bg-slate-100/60 dark:bg-slate-800/60 flex items-center justify-center z-40">
 
               {
                 showTypeSelector && (
@@ -203,9 +193,7 @@ function App() {
               {
                 showPokemonSelector && (
                   <div className="w-full h-full md:max-w-[80vw] md:max-h-[80vh] relative">
-                    <PokemonSelector 
-                      onChange={handlePokemonSelect}
-                      />
+                    <PokemonSelector />
                   </div>
                 )
               }
