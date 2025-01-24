@@ -1,25 +1,23 @@
-import { Pokemon } from "@lib/types";
+import useApp from "@lib/useApp";
 import silhoette from "@assets/icons/silhoette.svg"
 
 interface PokemonSelectorButtonProps {
-    selectedPokemon: Pokemon | null
     className?: string
     style?: React.CSSProperties
-    onClick?: () => void
 }
 
 const PokemonSelectorButton = ({
-    selectedPokemon,
     className,
     style,
-    onClick
 }: PokemonSelectorButtonProps) => {
 
+    const { selectedPokemon, setShowPokemonSelector } = useApp()
+ 
     return (
         <button 
             className={className}
             style={style}
-            onClick={onClick}
+            onClick={() => setShowPokemonSelector(true)}
             >
             <div 
                 className="w-full h-full rounded-full border-[3px] border-slate-100 dark:border-slate-800 bg-white pointer-events-auto flex items-center justify-center"

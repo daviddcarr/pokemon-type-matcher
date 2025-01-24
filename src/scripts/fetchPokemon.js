@@ -1,10 +1,10 @@
 import fs from 'fs/promises';
 import fetch from 'node-fetch';
 
+export const SUPPORTED_LANGUAGES = [ "en", "ja", "es", "fr", "it", "de", "ko" ]
+
 const userArg = parseInt(process.argv[2], 10);
 const CURRENT_MAX = Number.isNaN(userArg) ? 1025 : userArg;
-
-const SUPPORTED_LANGUAGES = [ "en", "ja", "es", "fr", "it", "de", "ko" ]
 
 async function getPokemonCount() {
     const resp = await fetch('https://pokeapi.co/api/v2/pokemon');

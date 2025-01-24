@@ -9,13 +9,16 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest",
-    "fetch-pokemon": "node src/scripts/fetchPokemon.js"
+    "fetch-pokemon": "node src/scripts/fetchPokemon.js",
+    "fetch-type-names": "node src/scripts/fetchTypeNames.js"
   },
   "dependencies": {
     "classnames": "^2.5.1",
+    "flag-icons": "^7.3.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-icons": "^5.4.0"
+    "react-icons": "^5.4.0",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

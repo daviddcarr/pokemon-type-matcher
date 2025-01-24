@@ -1,28 +1,27 @@
 import classNames from "classnames"
 
 import ALL_POKE_TYPES from "@data/types"
-import { BattlePositions, PokeTypeData } from "@lib/types"
+import useApp from "@lib/useApp"
 
 import TypeIcon from "@components/TypeIcon"
-import DualTypeButton from "@components/HubSelector/TypeButton"
+import TypeButton from "@components/HubSelector/TypeButton"
 
 export interface HubSelectorProps {
     radius: number,
-    selectedType: PokeTypeData,
-    selectedDualType: PokeTypeData | null,
-    battlePosition: BattlePositions,
     parentMounted: boolean,
-    showDualTypeSelector: () => void,
 }
 
 const HubSelector = ({
     radius,
-    selectedType,
-    selectedDualType,
-    battlePosition,
     parentMounted,
-    showDualTypeSelector,
 }: HubSelectorProps) => {
+
+    const { 
+        selectedType, 
+        selectedDualType, 
+        battlePosition, 
+        setShowDualTypeSelector 
+    } = useApp()
 
     const button_distance = {
         height: `${radius * 0.25}px`
@@ -70,14 +69,14 @@ const HubSelector = ({
                         )}
                         style={button_distance}
                         >
-                        <DualTypeButton
+                        <TypeButton
                             selectedType={selectedDualType}
                             className={classNames(
                                 "-translate-x-1/2 left-0 z-30",
                                 parentMounted ? "-rotate-[125deg]" : "-rotate-180"
                             )}
                             style={button_dimensions}
-                            onClick={showDualTypeSelector}
+                            onClick={() => setShowDualTypeSelector(true)}
                             />
                     </div>
                 )}
