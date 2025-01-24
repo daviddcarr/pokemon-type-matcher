@@ -3,32 +3,22 @@ import classNames from "classnames"
 
 import BattlePositionButton from "@components/HubSelector/BattlePositionButton"
 import TypeButton from "@components/HubSelector/TypeButton"
-import { PokeTypeData } from "@lib/types"
 import TypeCircle from "@components/TypeCircle"
 import HubSelector from "@components/HubSelector"
 import Pointers from "@components/Pointers"
-import TypeSelector from "@components/TypeSelector"
-import PokemonSelector from "@components/PokemonSelector"
 import PokemonSelectorButton from "@components/HubSelector/PokemonSelectorButton"
 import LanguageSelector from "@components/LanguageSelector"
+import Overlays from "@components/Overlays"
 
 import useApp from "@lib/useApp"
 
 function App() {
-  // State Handlers, (Should probably move to singleton)
   const { 
     selectedType,
     selectedDualType,
-    showPokemonSelector, 
-    showTypeSelector, 
-    showDualTypeSelector,
     battlePosition,
-    selectedPokemon,
-    setSelectedType,
-    setSelectedDualType,
     setShowTypeSelector,
     setShowDualTypeSelector,
-    setSelectedPokemon,
   } = useApp()
 
   // Resize observer to control scale of type circle
@@ -58,44 +48,19 @@ function App() {
     setComponentMounted(true);
   }, [])
   
-
-  // Change Handlers
-  const handleTypeSelect = (type: PokeTypeData | null) => {
-    if (type) {
-      setSelectedType(type)
-      if (selectedDualType === type) setSelectedDualType(null)
-      if (selectedPokemon?.types[0] !== type.name) {
-        setSelectedPokemon(null)
-      }
-    }
-    setShowTypeSelector(false)
-  }
-
-  const handleDualTypeSelect = (type: PokeTypeData | null) => {
-    // Set type unless it's the same as the currently selected primary type
-    if (type !== selectedType)
-      setSelectedDualType(type)
-    else 
-      setSelectedDualType(null)
-
-    if (selectedPokemon?.types[1] !== type?.name) {
-      setSelectedPokemon(null)
-    }
-
-    setShowDualTypeSelector(false)
-  }
-
   return (
     <main className="absolute inset-0 h-full w-full bg-slate-100 dark:bg-slate-800">
 
 
       <div className="relative w-full grid grid-rows-[auto_1fr_auto] h-full">
 
+        {/* Header Bar */}
         <div className="relative w-full flex items-center justify-between p-4 z-0 bg-slate-200 dark:bg-slate-900">
           <LanguageSelector />
         </div>
 
 
+        {/* Main Content: Circle */}
         <div className="relative w-full flex items-center justify-center p-4">
           <div 
             ref={containerRef}
@@ -127,7 +92,6 @@ function App() {
               <div className="w-full h-full absolute inset-0 pointer-events-none">
                 <TypeCircle
                   radius={radius}
-                  onChange={handleTypeSelect}
                   />
               </div>
 
@@ -136,6 +100,7 @@ function App() {
           </div>
         </div>
 
+        {/* Thumb / Footer UI */}
         <div className={classNames(
           "relative w-full flex items-center justify-between p-4 z-0 bg-slate-200 dark:bg-slate-900"
           )}
@@ -166,41 +131,8 @@ function App() {
         </div>
       </div>
 
-      {
-        (showTypeSelector || showDualTypeSelector || showPokemonSelector) && (
-          <div className="absolute inset-0 bg-slate-100/60 dark:bg-slate-800/60 flex items-center justify-center z-40">
-
-              {
-                showTypeSelector && (
-                  <div className="w-full h-full md:max-w-80 md:max-h-[80vh] relative md:rounded-md overflow-hidden">
-                    <TypeSelector
-                      onChange={handleTypeSelect}
-                      />
-                  </div>
-                )
-              }
-
-              {
-                showDualTypeSelector && (
-                  <div className="w-full h-full md:max-w-80 md:max-h-[80vh] relative md:rounded-md overflow-hidden">
-                    <TypeSelector
-                      onChange={handleDualTypeSelect}
-                      />
-                  </div>
-                )
-              }
-        
-              {
-                showPokemonSelector && (
-                  <div className="w-full h-full md:max-w-[80vw] md:max-h-[80vh] relative">
-                    <PokemonSelector />
-                  </div>
-                )
-              }
-          </div>
-        )
-      }
-
+      {/* Overlays */}
+      <Overlays />
 
     </main>
   )

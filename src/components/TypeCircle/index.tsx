@@ -2,21 +2,18 @@ import classNames from "classnames"
 import { useEffect, useState } from "react"
 
 import ALL_POKE_TYPES from "@data/types"
-import { PokeTypeData } from "@lib/types"
 import useApp from "@lib/useApp"
 import Slice from "./Slice"
 
 export interface TypeCircleProps {
     radius: number
-    onChange: (type: PokeTypeData) => void
 }
 
 const TypeCircle = ({
     radius,
-    onChange
 }: TypeCircleProps) => {
 
-    const { selectedType } = useApp()
+    const { selectedType, setSelectedType } = useApp()
 
     const [ componentMounted, setComponentMounted ] = useState(false);
 
@@ -46,7 +43,13 @@ const TypeCircle = ({
                 type={type} 
                 radius={radius}
                 selected={type === selectedType}
-                onClick={() => onChange(type)}
+                onClick={() => setSelectedType(type)}
+                style={{
+                  animationName: "wave",
+                  animationDuration: "10s",
+                  animationDelay: `${index * 0.09}s`,
+                  animationIterationCount: "infinite"
+                }}
                 />
             </div>
           </div>

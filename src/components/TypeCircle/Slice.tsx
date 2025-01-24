@@ -1,18 +1,25 @@
 import { getIdFromType } from "@data/types"
 import { PokeTypeData } from "@lib/types"
 import TypeIcon from "@components/TypeIcon"
+import classNames from "classnames"
 
 export type SliceProps = {
     type: PokeTypeData,
     radius: number,
     selected: boolean,
-    onClick?: () => void
+    onClick?: () => void,
+    className?: string,
+    style?: React.CSSProperties
 }
 
-const Slice = ({type, radius, selected = false, onClick}: SliceProps) => {
+const Slice = ({type, radius, selected = false, onClick, className, style}: SliceProps) => {
     return (
         <div 
-            className="w-full h-full relative"
+            className={ classNames(
+                "w-full h-full relative",
+                className
+            )}
+            style={style}
             >
             <div className={`${selected ? "-translate-y-8" : "hover:-translate-y-2"} w-full h-full relative transition-transform`}>
                 <svg 
