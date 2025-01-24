@@ -21,11 +21,17 @@
   transform: rotateY(180deg) translateZ(-1px);
 }
 
-@keyframes overlayRadial {
-  from {
-    clip-path: circle(100% at 50% 50%);
+@keyframes wave {
+  0% {
+    transform: translateY(0px)
   }
-  to {
-    clip-path: circle(0% at 50% 50%);
+  5% {
+    transform: translateY(-6px)
+  }
+  10% {
+    transform: translateY(0px)
+  }
+  100% {
+    transform: translateY(0px)
   }
 }

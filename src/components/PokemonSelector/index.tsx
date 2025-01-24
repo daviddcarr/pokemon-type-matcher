@@ -1,18 +1,16 @@
 import { useState } from "react"
 
-import { Pokemon, PokeType } from "@lib/types"
-
-import POKEMON from "@data/pokemon"
-import TYPE_NAMES from "@data/languages"
-
+import { Pokemon } from "@lib/types"
 import useApp from '@lib/useApp'
+import POKEMON from "@data/pokemon"
 import ALL_POKE_TYPES from "@data/types"
+
+import PokemonCard from "./PokemonCard"
 
 
 const PokemonSelector = () => {
 
     const { 
-        language,
         setSelectedPokemon, 
         setSelectedType, 
         setSelectedDualType, 
@@ -74,32 +72,13 @@ const PokemonSelector = () => {
             <div className="overflow-y-scroll h-full">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-rows-min">
                 {
-                    filteredPokemon.map((pokemon, i) => {
-                        
-                        const translatedTypeNames: string[] = []
-                        pokemon.types.forEach((type: PokeType) => {
-                            translatedTypeNames.push(TYPE_NAMES[type][language])
-                        })
-
-                        return (
-                        <button 
+                    filteredPokemon.map((pokemon, i) =>
+                        <PokemonCard
                             key={i}
-                            onClick={() => handlePokemonSelect(pokemon)} 
-                            className="w-full h-20 flex items-center cursor-pointer rounded-md hover:bg-slate-100 dark:hover:bg-slate-800" 
-                            >
-                            <img 
-                                src={pokemon.sprites.front_default}
-                                className="w-16 h-16 ml-4"
-                                />
-                            <div className="ml-4 text-left">
-                                <p className="text-lg font-bold text-black dark:text-white">
-                                    { language === "en" ? pokemon.name : pokemon.names[language] }
-                                </p>
-                                <p className="text-sm text-gray-500">{translatedTypeNames.join(", ")}</p>
-                            </div>
-                        </button>
+                            pokemon={pokemon}
+                            onClick={() => handlePokemonSelect(pokemon)}
+                            />
                     )
-                })
                 }
                 </div>
             </div>
