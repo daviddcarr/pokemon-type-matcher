@@ -4,7 +4,7 @@ import ALL_POKE_TYPES from "@data/types"
 import { BattlePositions, PokeTypeData } from "@lib/types"
 
 import TypeIcon from "@components/TypeIcon"
-import DualTypeButton from "@components/HubSelector/DualTypeButton"
+import DualTypeButton from "@components/HubSelector/TypeButton"
 
 export interface HubSelectorProps {
     radius: number,

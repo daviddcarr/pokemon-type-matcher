@@ -3,14 +3,14 @@ import { PokeTypeData } from "@lib/types"
 
 import TypeIcon from "@components/TypeIcon"
 
-export interface DualTypeSelectorProps {
+export interface TypeSelectorProps {
     onChange: (type: PokeTypeData | null) => void
 }
 
 
-const DualTypeSelector = ({
+const TypeSelector = ({
     onChange
-}: DualTypeSelectorProps) => {
+}: TypeSelectorProps) => {
 
     return (
         <>
@@ -44,4 +44,4 @@ const DualTypeSelector = ({
     )
 }
 
-export default DualTypeSelector
+export default TypeSelector

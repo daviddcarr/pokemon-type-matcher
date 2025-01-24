@@ -1,19 +1,19 @@
 import { PokeTypeData } from "@lib/types";
 import TypeIcon from "@components/TypeIcon";
 
-interface DualTypeButtonProps {
+interface TypeButtonProps {
     selectedType: PokeTypeData | null
     className?: string
     style?: React.CSSProperties
     onClick?: () => void
 }
 
-const DualTypeButton = ({
+const TypeButton = ({
     selectedType,
     className,
     style,
     onClick
-}: DualTypeButtonProps) => {
+}: TypeButtonProps) => {
 
     return (
         <button 
@@ -38,4 +38,4 @@ const DualTypeButton = ({
     )
 }
 
-export default DualTypeButton
+export default TypeButton
