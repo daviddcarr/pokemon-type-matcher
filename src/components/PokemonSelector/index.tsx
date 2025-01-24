@@ -3,7 +3,7 @@ import { useState } from "react"
 import { Pokemon, PokeType } from "@lib/types"
 
 import POKEMON from "@data/pokemon"
-import TYPE_NAMES from "@data/typeNames"
+import TYPE_NAMES from "@data/languages"
 
 import useApp from '@lib/useApp'
 import ALL_POKE_TYPES from "@data/types"
