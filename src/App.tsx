@@ -3,12 +3,12 @@ import classNames from "classnames"
 
 import pokeTypes from "@data/types"
 import BattlePositionButton from "@components/HubSelector/BattlePositionButton"
-import DualTypeButton from "@components/HubSelector/DualTypeButton"
+import TypeButton from "@components/HubSelector/TypeButton"
 import { BattlePositions, Pokemon, PokeTypeData } from "@lib/types"
 import TypeCircle from "@components/TypeCircle"
 import HubSelector from "@components/HubSelector"
 import Pointers from "@components/Pointers"
-import DualTypeSelector from "@components/DualTypeSelector"
+import TypeSelector from "@components/TypeSelector"
 import PokemonSelector from "@components/PokemonSelector"
 import PokemonSelectorButton from "@components/HubSelector/PokemonSelectorButton"
 
@@ -17,6 +17,7 @@ function App() {
   const [ selectedType, setSelectedType] = useState<PokeTypeData>(pokeTypes[0])
   const [ selectedDualType, setSelectedDualType] = useState<PokeTypeData|null>(pokeTypes[1])
   const [ battlePosition, setBattlePosition] = useState<BattlePositions>("to")
+  const [ showTypeSelector, setShowTypeSelector ] = useState(false)
   const [ showDualTypeSelector, setShowDualTypeSelector ] = useState(false)
   const [ showPokemonSelector, setShowPokemonSelector ] = useState(false)
   const [ selectedPokemon, setSelectedPokemon ] = useState<Pokemon|null>(null)
@@ -51,12 +52,16 @@ function App() {
   
 
   // Change Handlers
-  const handleTypeSelect = (type: PokeTypeData) => {
-    setSelectedType(type)
-    if (selectedDualType === type) setSelectedDualType(null)
-    if (selectedPokemon?.types[0] !== type.name) {
-      setSelectedPokemon(null)
+  const handleTypeSelect = (type: PokeTypeData | null) => {
+    console.log("type", type)
+    if (type) {
+      setSelectedType(type)
+      if (selectedDualType === type) setSelectedDualType(null)
+      if (selectedPokemon?.types[0] !== type.name) {
+        setSelectedPokemon(null)
+      }
     }
+    setShowTypeSelector(false)
   }
 
   const handleDualTypeSelect = (type: PokeTypeData | null) => {
@@ -135,19 +140,28 @@ function App() {
           </div>
         </div>
         <div className={classNames(
-          "relative w-full flex items-center justify-between sm:justify-center p-4 z-0 bg-slate-200 dark:bg-slate-900"
+          "relative w-full flex items-center justify-between p-4 z-0 bg-slate-200 dark:bg-slate-900"
           )}
           >
             <div className="flex">
               <PokemonSelectorButton
                 selectedPokemon={selectedPokemon}
                 className="h-16 w-16" 
-                onClick={() => setShowPokemonSelector(true)}
+                onClick={() => {
+                  console.log("Hello world")
+                  setShowPokemonSelector(true)
+                }}
+                />
+
+              <TypeButton
+                selectedType={selectedType}
+                className="h-16 w-16"
+                onClick={() => setShowTypeSelector(true)}
                 />
                 { battlePosition === "from" && (
-                  <DualTypeButton
+                  <TypeButton
                     selectedType={selectedDualType}
-                    className="h-16 w-16 sm:hidden" 
+                    className="h-16 w-16" 
                     onClick={() => setShowDualTypeSelector(true)}
                     />
                 )}
@@ -163,13 +177,23 @@ function App() {
       </div>
 
       {
-        (showDualTypeSelector || showPokemonSelector) && (
+        (showTypeSelector || showDualTypeSelector || showPokemonSelector) && (
           <div className="absolute inset-0 bg-slate-100 dark:bg-slate-800 bg-opacity-60 z-10 flex items-center justify-center z-40">
+
+              {
+                showTypeSelector && (
+                  <div className="w-full h-full md:max-w-80 md:max-h-[80vh] relative md:rounded-md overflow-hidden">
+                    <TypeSelector
+                      onChange={handleTypeSelect}
+                      />
+                  </div>
+                )
+              }
 
               {
                 showDualTypeSelector && (
                   <div className="w-full h-full md:max-w-80 md:max-h-[80vh] relative md:rounded-md overflow-hidden">
-                    <DualTypeSelector
+                    <TypeSelector
                       onChange={handleDualTypeSelect}
                       />
                   </div>
