@@ -26,10 +26,6 @@ const Slice = ({type, radius, selected = false, onClick, className, style}: Slic
                     width="100%" 
                     height="100%" 
                     viewBox="0 0 199 573" 
-                    version="1.1" 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    xmlnsXlink="http://www.w3.org/1999/xlink" 
-                    xmlSpace="preserve" 
                     style={{ 
                         fillRule: "evenodd", 
                         clipRule: "evenodd", 
