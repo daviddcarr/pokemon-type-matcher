@@ -131,7 +131,7 @@ function App() {
         </div>
       </div>
 
-      {/* Overlays */}
+      {/* Overlays / Windows */}
       <Overlays />
 
     </main>
