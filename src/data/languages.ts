@@ -14,5 +14,15 @@ export const LANGUAGE_CLASS: Record<SupportedLanguage, string> = {
     "ko": "kr"
 }
 
+export const LANGUAGE_DICT_ATTACKING: Record<SupportedLanguage, string> = {
+    "en": "is Attacking",
+    "ja": "攻撃中",
+    "es": "está atacando",
+    "fr": "attaque",
+    "it": "sta attaccando",
+    "de": "greift an",
+    "ko": "공격 중"
+  }
+
 const TYPE_NAMES = raw as LocalizedTypeNames;
 export default TYPE_NAMES;

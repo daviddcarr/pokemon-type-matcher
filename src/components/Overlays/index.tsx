@@ -6,11 +6,13 @@ import PokemonSelector from "@components/PokemonSelector"
 const Overlays = () => {
 
     const {
-        showTypeSelector,
-        showDualTypeSelector,
-        showPokemonSelector,
-        setSelectedType,
-        setSelectedDualType
+      selectedType,
+      selectedDualType,
+      showTypeSelector,
+      showDualTypeSelector,
+      showPokemonSelector,
+      setSelectedType,
+      setSelectedDualType
     } = useApp()
 
     return (showTypeSelector || showDualTypeSelector || showPokemonSelector) ? (
@@ -21,6 +23,7 @@ const Overlays = () => {
                 <div className="w-full h-full md:max-w-80 md:max-h-[80vh] relative md:rounded-md overflow-hidden">
                   <TypeSelector
                     onChange={setSelectedType}
+                    selectedType={selectedType}
                     />
                 </div>
               )
@@ -31,6 +34,7 @@ const Overlays = () => {
                 <div className="w-full h-full md:max-w-80 md:max-h-[80vh] relative md:rounded-md overflow-hidden">
                   <TypeSelector
                     onChange={setSelectedDualType}
+                    selectedType={selectedDualType}
                     />
                 </div>
               )

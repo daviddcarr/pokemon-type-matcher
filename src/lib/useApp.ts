@@ -23,6 +23,7 @@ interface AppState {
     // Actions
     setSelectedType: (type: PokeTypeData | null) => void;
     setSelectedDualType: (type: PokeTypeData | null) => void;
+    setDualTypes: (mainType: PokeTypeData, dualType: PokeTypeData | null) => void;
     setBattlePosition: (pos: BattlePositions) => void;
     setShowTypeSelector: (show: boolean) => void;
     setShowDualTypeSelector: (show: boolean) => void;
@@ -31,16 +32,27 @@ interface AppState {
     setLanguage: (lang: SupportedLanguage) => void;
 }
 
+const pokemonHasType = (type: PokeTypeData, pokemon: Pokemon) => {
+    return pokemon.types.includes(type.name)
+}
+
+const typesMatchPokemon = (mainType: PokeTypeData, dualType: PokeTypeData | null, pokemon: Pokemon) => {
+    if (!dualType) {
+        return pokemon.types.includes(mainType.name)
+    }
+    return pokemon.types.includes(mainType.name) && pokemon.types.includes(dualType.name)
+}
+
 const useApp = create<AppState>((set) => ({
     // Initial Values
     selectedType: pokeTypes[0],
     selectedDualType: null,
-    battlePosition: 'to',
+    battlePosition: "to",
     showTypeSelector: false,
     showDualTypeSelector: false,
     showPokemonSelector: false,
     selectedPokemon: null,
-    language: 'en',
+    language: "en",
 
     // Actions
     setSelectedType: (type: PokeTypeData | null) => set((state) => {
@@ -55,7 +67,7 @@ const useApp = create<AppState>((set) => ({
             newSelectedDual = null
         }
 
-        if (newSelectedPokemon && newSelectedPokemon.types[0] !== type.name) {
+        if (newSelectedPokemon && !pokemonHasType(type, newSelectedPokemon)) {
             newSelectedPokemon = null
         }
 
@@ -77,7 +89,7 @@ const useApp = create<AppState>((set) => ({
         const newDual = type !== state.selectedType ? type : null
 
         let newSelectedPokemon = state.selectedPokemon
-        if (newSelectedPokemon && newSelectedPokemon.types[1] !== type.name) {
+        if (newSelectedPokemon && !pokemonHasType(type, newSelectedPokemon)) {
             newSelectedPokemon = null;
         }
 
@@ -85,6 +97,20 @@ const useApp = create<AppState>((set) => ({
             selectedDualType: newDual,
             selectedPokemon: newSelectedPokemon,
             showDualTypeSelector: false
+        }
+    }),
+
+    setDualTypes: (mainType: PokeTypeData, dualType: PokeTypeData | null) => set((state) => {
+        let newSelectedPokemon = state.selectedPokemon
+
+        if (newSelectedPokemon  && !typesMatchPokemon(mainType, dualType, newSelectedPokemon)) {
+            newSelectedPokemon = null
+        }
+
+        return {
+            selectedType: mainType,
+            selectedDualType: dualType,
+            selectedPokemon: newSelectedPokemon
         }
     }),
 

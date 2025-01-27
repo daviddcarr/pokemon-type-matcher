@@ -58,7 +58,7 @@ const HubSelector = ({
                         }}
                         onClick={() => setShowTypeSelector(true)}
                         >
-                        <TypeIcon type={selectedType.name} className="w-1/2 h-1/2 object-contain" />
+                        <TypeIcon type={selectedType.name} className="w-1/2 h-1/2 object-contain fill-white dark:fill-slate-900" />
                     </div>
 
                 </div>

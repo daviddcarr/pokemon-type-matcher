@@ -28,7 +28,7 @@ const TypeButton = ({
                 }}
                 >
                     { selectedType ? (
-                        <TypeIcon type={selectedType.name} className="text-white w-[65%]" />
+                        <TypeIcon type={selectedType.name} className="text-white w-[50%] fill-white dark:fill-slate-900" />
                     ) : (
                         <span className="text-black text-xl relative -top-[2px] font-bold">+</span>
                     )

@@ -19,7 +19,7 @@ const Slice = ({type, radius, damageType, onClick, className, style}: SliceProps
 
     const positionClass = effectiveTypes.includes(damageType ?? "")
         ? "-translate-y-4" 
-        : innefectiveTypes.includes(damageType ?? "") ? "opacity-50 scale-[90%]" : "bloop"
+        : innefectiveTypes.includes(damageType ?? "") ? "opacity-50 scale-[90%]" : ""
 
     return (
         <div 
@@ -52,7 +52,7 @@ const Slice = ({type, radius, damageType, onClick, className, style}: SliceProps
                 </svg>
                 <TypeIcon 
                     type={type.name} 
-                    className="pointer-events-none absolute left-1/2 origin-center opacity-50" 
+                    className="pointer-events-none absolute left-1/2 origin-center opacity-50 fill-white dark:fill-slate-900" 
                     style={{
                         top: '12%',
                         transform: `translateX(-50%) translateY(-50%) rotate(-${ (getIdFromType(type.name) - 1) * 20}deg)`,
