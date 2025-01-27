@@ -20,6 +20,7 @@ const HubSelector = ({
         selectedType, 
         selectedDualType, 
         battlePosition, 
+        setShowTypeSelector,
         setShowDualTypeSelector 
     } = useApp()
 
@@ -48,13 +49,14 @@ const HubSelector = ({
                     {/* Selected type */}
                     <div 
                         className={classNames(
-                            "absolute rounded-full h-full w-full z-20 border-4 border-slate-100 dark:border-slate-800 origin-center flex items-center justify-center transition-transform",
+                            "absolute rounded-full h-full w-full z-20 border-4 border-slate-100 dark:border-slate-800 origin-center flex items-center justify-center transition-transform pointer-events-auto cursor-pointer",
                             parentMounted ? 'scale-100' : 'scale-0'
                         )}
                         style={{
                             backgroundColor: selectedType.color,
                             transitionDelay: `${ALL_POKE_TYPES.length * 10}ms`,
                         }}
+                        onClick={() => setShowTypeSelector(true)}
                         >
                         <TypeIcon type={selectedType.name} className="w-1/2 h-1/2 object-contain" />
                     </div>

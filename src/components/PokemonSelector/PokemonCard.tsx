@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import useApp from '@lib/useApp'
 import { Pokemon, PokeType } from "@lib/types"
 import TYPE_NAMES from "@data/languages"
@@ -5,10 +6,12 @@ import { getDataFromType } from "@data/types"
 
 export interface PokemonCardProps {
     pokemon: Pokemon,
-    onClick: (pokemon: Pokemon) => void
+    onClick: (pokemon: Pokemon) => void,
+    isActive: boolean,
+    className?: string
 }
 
-const PokemonCard = ({ pokemon, onClick }: PokemonCardProps) => {
+const PokemonCard = ({ pokemon, onClick, isActive, className }: PokemonCardProps) => {
 
     const { language } = useApp();
 
@@ -20,7 +23,11 @@ const PokemonCard = ({ pokemon, onClick }: PokemonCardProps) => {
     return (
         <button 
             onClick={() => onClick(pokemon)} 
-            className="w-full h-20 flex items-center cursor-pointer rounded-md hover:bg-slate-100 dark:hover:bg-slate-800" 
+            className={classNames(
+                "w-full h-20 flex items-center cursor-pointer rounded-md",
+                className,
+                isActive ? "bg-slate-100 dark:bg-slate-800" : "hover:bg-slate-100 dark:hover:bg-slate-800"
+            )} 
             >
             <img 
                 src={pokemon.sprites.front_default}

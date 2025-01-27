@@ -1,5 +1,7 @@
 import raw from "@data/json/typeData.json"
-import { PokeType, PokeTypeData, DualPokeDamageRelations } from "@lib/types"
+import { PokeType, PokeTypeData, DualPokeDamageRelations, DualDamageTypes, DamageRelationKey, DualDamageRelationKey } from "@lib/types"
+
+import useApp from "@lib/useApp"
 
 export const POKE_TYPE_NAMES = [
     "normal",
@@ -77,4 +79,28 @@ export const combineDualTypes = (primary: PokeTypeData, secondary: PokeTypeData)
     })
 
     return result
+}
+
+export const getDamageForTypeName = (type: PokeType): DualDamageTypes | null => {
+    const { selectedType, selectedDualType, battlePosition } = useApp()
+    let matchingType: DualDamageTypes | null = null
+
+    if (battlePosition === "from" && selectedDualType !== null) {
+        const damageRelations: DualPokeDamageRelations = combineDualTypes(selectedType, selectedDualType)
+
+
+        DUAL_DAMAGE_TYPES.forEach(damageType => {
+            if (damageRelations[`${damageType}_damage_from` as DualDamageRelationKey].includes(type)) {
+                matchingType = damageType
+            }
+        })
+    } else {
+        DAMAGE_TYPES.forEach(damageType => {
+            const damageTypes = selectedType.damage_relations[`${damageType}_damage_${battlePosition}` as DamageRelationKey]
+            if (damageTypes.includes(type)) {
+                matchingType = damageType
+            }
+        })
+    }
+    return matchingType
 }

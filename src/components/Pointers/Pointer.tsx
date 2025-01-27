@@ -15,6 +15,12 @@ export type PointerProps = {
 
 const Pointer = ({ type, radius, position, damageType, parentMounted }: PointerProps) => {
 
+    const vertical_damage_icons: DualDamageTypes[] = ["half", "quarter", "no"]
+
+    const rotation = vertical_damage_icons.includes(damageType) 
+        ? `rotate(-${(getIdFromType(type.name) - 1) * 20}deg)` 
+        : position === "to" ? "rotate(0deg)" : "rotate(180deg)"
+
     return (
          <div 
             className={classNames(
@@ -39,10 +45,11 @@ const Pointer = ({ type, radius, position, damageType, parentMounted }: PointerP
                             damageType={damageType}
                             className="-translate-x-1/2"
                             style={{
-                                transform: `translateX(-50%) ${position === "to" ? "rotate(0deg)" : "rotate(180deg)"}`,
+                                transform: `translateX(-50%) ${rotation}`,
                                 width: `${radius * 0.07}px`
                             }}
                             />
+
                     </div>
         </div>
     )

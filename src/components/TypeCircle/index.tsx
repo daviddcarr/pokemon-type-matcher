@@ -1,7 +1,7 @@
 import classNames from "classnames"
 import { useEffect, useState } from "react"
 
-import ALL_POKE_TYPES from "@data/types"
+import ALL_POKE_TYPES, { getDamageForTypeName } from "@data/types"
 import useApp from "@lib/useApp"
 import Slice from "./Slice"
 
@@ -13,8 +13,6 @@ const TypeCircle = ({
     radius,
 }: TypeCircleProps) => {
 
-    const { selectedType, setSelectedType } = useApp()
-
     const [ componentMounted, setComponentMounted ] = useState(false);
 
     useEffect(() => {
@@ -22,6 +20,7 @@ const TypeCircle = ({
     }, []);
 
     return ALL_POKE_TYPES.map((type, index) => {
+
         return (
           <div 
             className="circle origin-bottom absolute left-1/2 transition-transform" 
@@ -42,8 +41,7 @@ const TypeCircle = ({
               <Slice 
                 type={type} 
                 radius={radius}
-                selected={type === selectedType}
-                onClick={() => setSelectedType(type)}
+                damageType={getDamageForTypeName(type.name)}
                 style={{
                   animationName: "wave",
                   animationDuration: "10s",
