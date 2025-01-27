@@ -20,6 +20,19 @@ const TypeCircle = ({
 
     return ALL_POKE_TYPES.map((type, index) => {
 
+        const damageType = getDamageForTypeName(type.name)
+
+        const sliceAnimation = damageType === "quadruple" ? {
+            animation: "shake 0.11s linear infinite"
+        }: {}
+
+        const sliceWave = {
+          animationName: "wave",
+          animationDuration: "10s",
+          animationDelay: `${index * 0.09}s`,
+          animationIterationCount: "infinite"
+        }
+
         return (
           <div 
             className="circle origin-bottom absolute left-1/2 transition-transform" 
@@ -35,18 +48,13 @@ const TypeCircle = ({
               style={{
                 transitionDelay: `${index * 10}ms`,
                 height: `${radius}px`, 
-
+                ...sliceAnimation
               }}>
               <Slice 
                 type={type} 
                 radius={radius}
-                damageType={getDamageForTypeName(type.name)}
-                style={{
-                  animationName: "wave",
-                  animationDuration: "10s",
-                  animationDelay: `${index * 0.09}s`,
-                  animationIterationCount: "infinite"
-                }}
+                damageType={damageType}
+                style={sliceWave}
                 />
             </div>
           </div>

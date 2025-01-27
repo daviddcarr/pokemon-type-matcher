@@ -2,7 +2,7 @@
     {
         "id": 1,
         "name": "normal",
-        "color": "#A8A878",
+        "color": "#828282",
         "damage_relations": {
             "double_damage_from": ["fighting"],
             "double_damage_to": [],
@@ -15,7 +15,7 @@
     {
         "id": 2,
         "name": "fire",
-        "color": "#F08030",
+        "color": "#E4613E",
         "damage_relations": {
             "double_damage_from": ["ground", "rock", "water"],
             "double_damage_to": ["bug", "steel", "grass", "ice"],
@@ -28,7 +28,7 @@
     {
         "id": 3,
         "name": "water",
-        "color": "#6890F0",
+        "color": "#3099E1",
         "damage_relations": {
             "double_damage_from": ["grass", "electric"],
             "double_damage_to": ["ground", "rock", "fire"],
@@ -41,7 +41,7 @@
     {
         "id": 4,
         "name": "electric",
-        "color": "#F8D030",
+        "color": "#DFBC28",
         "damage_relations": {
             "double_damage_from": ["ground"],
             "double_damage_to": ["flying", "water"],
@@ -54,7 +54,7 @@
     {
         "id": 5,
         "name": "grass",
-        "color": "#78C850",
+        "color": "#439837",
         "damage_relations": {
             "double_damage_from": ["flying", "poison", "bug", "fire", "ice"],
             "double_damage_to": ["ground", "rock", "water"],
@@ -67,7 +67,7 @@
     {
         "id": 6,
         "name": "ice",
-        "color": "#98D8D8",
+        "color": "#47C8C8",
         "damage_relations": {
             "double_damage_from": ["fighting", "rock", "steel", "fire"],
             "double_damage_to": ["flying", "ground", "grass", "dragon"],
@@ -80,7 +80,7 @@
     {
         "id": 7,
         "name": "fighting",
-        "color": "#C03028",
+        "color": "#E49021",
         "damage_relations": {
             "double_damage_from": ["flying", "psychic", "fairy"],
             "double_damage_to": ["normal", "rock", "steel", "ice", "dark"],
@@ -93,7 +93,7 @@
     {
         "id": 8,
         "name": "poison",
-        "color": "#A040A0",
+        "color": "#9354CB",
         "damage_relations": {
             "double_damage_from": ["ground", "psychic"],
             "double_damage_to": ["grass", "fairy"],
@@ -106,7 +106,7 @@
     {
         "id": 9,
         "name": "ground",
-        "color": "#E0C068",
+        "color": "#A4733C",
         "damage_relations": {
             "double_damage_from": ["water", "grass", "ice"],
             "double_damage_to": ["poison", "rock", "steel", "fire", "electric"],
@@ -119,7 +119,7 @@
     {
         "id": 10,
         "name": "flying",
-        "color": "#A890F0",
+        "color": "#74AAD0",
         "damage_relations": {
             "double_damage_from": ["rock", "electric", "ice"],
             "double_damage_to": ["fighting", "bug", "grass"],
@@ -132,7 +132,7 @@
     {
         "id": 11,
         "name": "psychic",
-        "color": "#F85888",
+        "color": "#E96C8C",
         "damage_relations": {
             "double_damage_from": ["bug", "ghost", "dark"],
             "double_damage_to": ["fighting", "poison"],
@@ -145,7 +145,7 @@
     {
         "id": 12,
         "name": "bug",
-        "color": "#A8B820",
+        "color": "#9F9F28",
         "damage_relations": {
             "double_damage_from": ["flying", "rock", "fire"],
             "double_damage_to": ["grass", "psychic", "dark"],
@@ -158,7 +158,7 @@
     {
         "id": 13,
         "name": "rock",
-        "color": "#B8A038",
+        "color": "#A9A481",
         "damage_relations": {
             "double_damage_from": ["fighting", "ground", "steel", "water", "grass"],
             "double_damage_to": ["flying", "bug", "fire", "ice"],
@@ -171,7 +171,7 @@
     {
         "id": 14,
         "name": "ghost",
-        "color": "#705898",
+        "color": "#6F4570",
         "damage_relations": {
             "double_damage_from": ["ghost", "dark"],
             "double_damage_to": ["ghost", "psychic"],
@@ -184,7 +184,7 @@
     {
         "id": 15,
         "name": "dragon",
-        "color": "#7038F8",
+        "color": "#576FBC",
         "damage_relations": {
             "double_damage_from": ["ice", "dragon", "fairy"],
             "double_damage_to": ["dragon"],
@@ -197,7 +197,7 @@
     {
         "id": 16,
         "name": "dark",
-        "color": "#705848",
+        "color": "#4F4747",
         "damage_relations": {
             "double_damage_from": ["fighting", "bug", "fairy"],
             "double_damage_to": ["ghost", "psychic"],
@@ -210,7 +210,7 @@
     {
         "id": 17,
         "name": "steel",
-        "color": "#B8B8D0",
+        "color": "#74B0CB",
         "damage_relations": {
             "double_damage_from": ["fighting", "ground", "fire"],
             "double_damage_to": ["rock", "ice", "fairy"],
@@ -223,7 +223,7 @@
     {
         "id": 18,
         "name": "fairy",
-        "color": "#EE99AC",
+        "color": "#E18CE1",
         "damage_relations": {
             "double_damage_from": ["poison", "steel"],
             "double_damage_to": ["fighting", "dragon", "dark"],
