@@ -2,7 +2,6 @@ import classNames from "classnames"
 import { useEffect, useState } from "react"
 
 import ALL_POKE_TYPES, { getDamageForTypeName } from "@data/types"
-import useApp from "@lib/useApp"
 import Slice from "./Slice"
 
 export interface TypeCircleProps {
