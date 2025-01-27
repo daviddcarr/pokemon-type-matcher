@@ -25,7 +25,7 @@ const TypeCircle = ({
             className="circle origin-bottom absolute left-1/2 transition-transform" 
             key={index} 
             style={{ 
-              transform: `translateX(-50%) rotate(${index * 20}deg) translateY(-10px)`,
+              transform: `translateX(-50%) rotate(${index * 20}deg) translateY(-10px)`
               }}>
             <div
               className={classNames(

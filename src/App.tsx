@@ -9,6 +9,7 @@ import Pointers from "@components/Pointers"
 import PokemonSelectorButton from "@components/HubSelector/PokemonSelectorButton"
 import LanguageSelector from "@components/LanguageSelector"
 import Overlays from "@components/Overlays"
+import { MdSwapHorizontalCircle } from "react-icons/md"
 
 import useApp from "@lib/useApp"
 
@@ -17,6 +18,7 @@ function App() {
     selectedType,
     selectedDualType,
     battlePosition,
+    setDualTypes,
     setShowTypeSelector,
     setShowDualTypeSelector,
   } = useApp()
@@ -105,7 +107,7 @@ function App() {
           "relative w-full flex items-center justify-between p-4 z-0 bg-slate-200 dark:bg-slate-900"
           )}
           >
-            <div className="flex">
+            <div className="flex gap-1">
               <PokemonSelectorButton
                 className="h-16 w-16" 
                 />
@@ -115,17 +117,33 @@ function App() {
                 className="h-16 w-16"
                 onClick={() => setShowTypeSelector(true)}
                 />
-                { battlePosition === "from" && (
-                  <TypeButton
-                    selectedType={selectedDualType}
-                    className="h-16 w-16" 
-                    onClick={() => setShowDualTypeSelector(true)}
-                    />
+              <TypeButton
+                selectedType={selectedDualType}
+                className={classNames(
+                  "h-16 w-16",
+                  battlePosition === "to" && "opacity-75 grayscale"
                 )}
-              </div>
-              <BattlePositionButton
-                className="h-16 w-16" 
+                onClick={() => {
+                  setShowDualTypeSelector(true)
+                }}
                 />
+              {
+                selectedDualType && (                  
+                  <button
+                    className="h-16 w-16 flex items-center justify-center text-slate-900 dark:text-slate-200 p-2 rounded-full bg-slate-400 dark:bg-slate-600"
+                    onClick={() => {
+                      const mainType = selectedDualType
+                      const dualType = selectedType
+    
+                      setDualTypes(mainType, dualType)
+                    }}
+                    ><MdSwapHorizontalCircle className="text-4xl" /></button>
+                )
+              }
+            </div>
+            <BattlePositionButton
+              className="h-16 w-16" 
+              />
 
 
         </div>

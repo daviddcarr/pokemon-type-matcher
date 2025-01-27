@@ -19,7 +19,7 @@ const Slice = ({type, radius, damageType, onClick, className, style}: SliceProps
 
     const positionClass = effectiveTypes.includes(damageType ?? "")
         ? "-translate-y-4" 
-        : innefectiveTypes.includes(damageType ?? "") ? "opacity-50 scale-[90%]" : "bloop"
+        : innefectiveTypes.includes(damageType ?? "") ? "opacity-50 scale-[90%]" : ""
 
     return (
         <div 
