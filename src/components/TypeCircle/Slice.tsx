@@ -1,18 +1,26 @@
 import { getIdFromType } from "@data/types"
-import { PokeTypeData } from "@lib/types"
+import { DualDamageTypes, PokeTypeData } from "@lib/types"
 import TypeIcon from "@components/TypeIcon"
 import classNames from "classnames"
 
 export type SliceProps = {
     type: PokeTypeData,
     radius: number,
-    selected: boolean,
+    damageType: DualDamageTypes | null,
     onClick?: () => void,
     className?: string,
     style?: React.CSSProperties
 }
 
-const Slice = ({type, radius, selected = false, onClick, className, style}: SliceProps) => {
+const Slice = ({type, radius, damageType, onClick, className, style}: SliceProps) => {
+
+    const effectiveTypes: DualDamageTypes[] = ["double", "quadruple"]
+    const innefectiveTypes: DualDamageTypes[] = ["half", "quarter", "no"]
+
+    const positionClass = effectiveTypes.includes(damageType ?? "")
+        ? "-translate-y-4" 
+        : innefectiveTypes.includes(damageType ?? "") ? "opacity-50 scale-[90%]" : "bloop"
+
     return (
         <div 
             className={ classNames(
@@ -21,7 +29,10 @@ const Slice = ({type, radius, selected = false, onClick, className, style}: Slic
             )}
             style={style}
             >
-            <div className={`${selected ? "-translate-y-8" : "hover:-translate-y-2"} w-full h-full relative transition-transform`}>
+            <div className={classNames(
+                    `w-full h-full relative transition-transform`,
+                    positionClass
+                )}>
                 <svg 
                     width="100%" 
                     height="100%" 

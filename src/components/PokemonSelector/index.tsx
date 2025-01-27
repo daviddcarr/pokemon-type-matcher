@@ -11,6 +11,7 @@ import PokemonCard from "./PokemonCard"
 const PokemonSelector = () => {
 
     const { 
+        selectedPokemon,
         setSelectedPokemon, 
         setSelectedType, 
         setSelectedDualType, 
@@ -70,13 +71,15 @@ const PokemonSelector = () => {
 
             {/* Pokemon List */}
             <div className="overflow-y-scroll h-full">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-rows-min">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-rows-min p-2 gap-1">
                 {
                     filteredPokemon.map((pokemon, i) =>
                         <PokemonCard
                             key={i}
                             pokemon={pokemon}
                             onClick={() => handlePokemonSelect(pokemon)}
+                            isActive={selectedPokemon === pokemon}
+                            className={selectedPokemon === pokemon ? "order-0" : "order-1"}
                             />
                     )
                 }
