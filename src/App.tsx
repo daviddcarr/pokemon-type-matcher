@@ -14,6 +14,7 @@ import TypeIcon from "@components/TypeIcon"
 import { LANGUAGE_DICT_ATTACKING } from "@data/languages"
 
 import useApp from "@lib/useApp"
+import InstallButton from "@components/InstallButton"
 
 function App() {
   const { 
@@ -62,6 +63,8 @@ function App() {
         {/* Header Bar */}
         <div className="relative w-full flex items-center justify-between p-4 z-0 bg-slate-200 dark:bg-slate-900">
           <LanguageSelector />
+
+          <InstallButton />
         </div>
 
 
