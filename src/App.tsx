@@ -13,8 +13,9 @@ import { MdSwapHorizontalCircle } from "react-icons/md"
 import TypeIcon from "@components/TypeIcon"
 import { LANGUAGE_DICT_ATTACKING } from "@data/languages"
 
+
 import useApp from "@lib/useApp"
-import InstallButton from "@components/InstallButton"
+import InfoButton from "@components/InfoPanel/InfoButton"
 
 function App() {
   const { 
@@ -25,7 +26,9 @@ function App() {
     setDualTypes,
     setShowTypeSelector,
     setShowDualTypeSelector,
+    setShowInfo
   } = useApp()
+
 
   // Resize observer to control scale of type circle
   const [ radius, setRadius ] = useState<number>(2);
@@ -64,7 +67,12 @@ function App() {
         <div className="relative w-full flex items-center justify-between p-4 z-0 bg-slate-200 dark:bg-slate-900">
           <LanguageSelector />
 
-          <InstallButton />
+          <InfoButton 
+            onClick={() => {
+              console.log("Show Info")
+              setShowInfo(true)
+            }}
+            />
         </div>
 
 
