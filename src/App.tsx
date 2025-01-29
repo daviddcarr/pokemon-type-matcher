@@ -13,7 +13,7 @@ import { MdSwapHorizontalCircle } from "react-icons/md"
 import TypeIcon from "@components/TypeIcon"
 import { LANGUAGE_DICT_ATTACKING } from "@data/languages"
 
-
+import useStyles from "@lib/useStyles"
 import useApp from "@lib/useApp"
 import InfoButton from "@components/InfoPanel/InfoButton"
 
@@ -29,6 +29,7 @@ function App() {
     setShowInfo
   } = useApp()
 
+  const styles = useStyles()
 
   // Resize observer to control scale of type circle
   const [ radius, setRadius ] = useState<number>(2);
@@ -69,7 +70,6 @@ function App() {
 
           <InfoButton 
             onClick={() => {
-              console.log("Show Info")
               setShowInfo(true)
             }}
             />
@@ -123,7 +123,11 @@ function App() {
             className="w-8 fill-slate-900 dark:fill-white"
             /> 
 
-          <h2 className="text-xl text-slate-900 dark:text-white">{ LANGUAGE_DICT_ATTACKING[language] }</h2>
+          <h2 className={classNames(
+            styles.headingFont,
+            "text-xl text-slate-900 dark:text-white"
+            )}
+            >{ LANGUAGE_DICT_ATTACKING[language] }</h2>
 
           <TypeIcon
             type={battlePosition === "to" ? "all" : selectedType?.name}
@@ -144,18 +148,18 @@ function App() {
           >
             <div className="flex gap-1">
               <PokemonSelectorButton
-                className="h-16 w-16" 
+                className="h-10 w-10 sm:h-16 sm:w-16" 
                 />
 
               <TypeButton
                 selectedType={selectedType}
-                className="h-16 w-16"
+                className="h-10 w-10 sm:h-16 sm:w-16"
                 onClick={() => setShowTypeSelector(true)}
                 />
               <TypeButton
                 selectedType={selectedDualType}
                 className={classNames(
-                  "h-16 w-16",
+                  "h-10 w-10 sm:h-16 sm:w-16",
                   battlePosition === "to" && "opacity-75 grayscale"
                 )}
                 onClick={() => {
@@ -165,7 +169,7 @@ function App() {
               {
                 selectedDualType && (                  
                   <button
-                    className="h-16 w-16 flex items-center justify-center text-slate-900 dark:text-slate-200 p-2 rounded-full bg-slate-400 dark:bg-slate-600"
+                    className="h-10 w-10 sm:h-16 sm:w-16 flex items-center justify-center text-slate-900 dark:text-slate-200 p-2 rounded-full bg-slate-400 dark:bg-slate-600"
                     onClick={() => {
                       const mainType = selectedDualType
                       const dualType = selectedType
@@ -177,7 +181,7 @@ function App() {
               }
             </div>
             <BattlePositionButton
-              className="h-16 w-16" 
+              className="h-10 w-10 sm:h-16 sm:w-16" 
               />
 
 

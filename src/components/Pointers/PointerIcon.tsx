@@ -1,4 +1,5 @@
 import { DualDamageTypes } from "@lib/types"
+import classNames from "classnames"
 
 interface PointerIconProps {
     damageType: DualDamageTypes,
@@ -53,7 +54,7 @@ const PointerIcon = ({
                 >
                 <path 
                     id="effective" 
-                    className="fill-white dark:fill-slate-900"
+                    className=""
                     d={SVG_DATA[damageType].path}
                     />
             </svg>

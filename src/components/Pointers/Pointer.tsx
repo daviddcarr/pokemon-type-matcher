@@ -43,7 +43,7 @@ const Pointer = ({ type, radius, position, damageType, parentMounted }: PointerP
                         }}>
                         <PointerIcon
                             damageType={damageType}
-                            className="-translate-x-1/2"
+                            className="-translate-x-1/2 fill-white dark:fill-slate-900"
                             style={{
                                 transform: `translateX(-50%) ${rotation}`,
                                 width: `${radius * 0.07}px`

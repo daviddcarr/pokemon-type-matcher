@@ -2,6 +2,7 @@ import classNames from "classnames"
 
 import ALL_POKE_TYPES from "@data/types"
 import { PokeTypeData } from "@lib/types"
+import useStyles from "@lib/useStyles"
 
 import TypeIcon from "@components/TypeIcon"
 
@@ -15,6 +16,8 @@ const TypeSelector = ({
     onChange,
     selectedType
 }: TypeSelectorProps) => {
+
+    const styles = useStyles()
 
     const animationStyles: React.CSSProperties = {
         animationName: "scaleWave",
@@ -51,7 +54,10 @@ const TypeSelector = ({
                         )
                     })
                 }
-                <button className="col-span-3 w-full h-full flex items-center justify-center bg-white"
+                <button className={classNames(
+                        styles.headingFont,
+                        "col-span-3 w-full h-full flex items-center justify-center bg-white"
+                    )}
                     onClick={() => onChange(null)}
                     >
                     None
