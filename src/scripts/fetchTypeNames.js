@@ -57,6 +57,25 @@ async function main() {
     writeDataToJson(typeList, 'typeNames.json');
 
     console.log(`Wrote ${typeList.length} Type Names to ./src/data/json/typeNames.json`);
+
+    let typesByLanguage = {}
+    SUPPORTED_LANGUAGES.forEach((lang) => {
+        console.log(`Creating array for ${lang}`)
+        typesByLanguage[lang] = {}
+    })
+
+    POKE_TYPE_NAMES.forEach((type) => {
+        SUPPORTED_LANGUAGES.forEach((lang) => {
+            console.log(`Adding ${type} to ${lang}`)
+            if (typeList[type][lang]) {
+                typesByLanguage[lang][type] = typeList[type][lang]
+            }
+        })
+    })
+
+    writeDataToJson(typesByLanguage, 'typesByLanguage.json');
+
+    console.log(`Wrote ${typesByLanguage.length} Type Names to ./src/data/json/typesByLanguage.json`);
 }
 
 main().catch((error) => {

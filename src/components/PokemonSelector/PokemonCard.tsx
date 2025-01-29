@@ -2,8 +2,8 @@ import classNames from 'classnames'
 import useApp from '@lib/useApp'
 import useStyles from "@lib/useStyles"
 import { Pokemon, PokeType } from "@lib/types"
-import TYPE_NAMES from "@data/languages"
 import { getDataFromType } from "@data/types"
+import useLanguage from '@lib/useLanguage'
 
 export interface PokemonCardProps {
     pokemon: Pokemon,
@@ -16,11 +16,7 @@ const PokemonCard = ({ pokemon, onClick, isActive, className }: PokemonCardProps
 
     const { language } = useApp()
     const styles = useStyles()
-
-    const translatedTypeNames: string[] = []
-    pokemon.types.forEach((type: PokeType) => {
-        translatedTypeNames.push(TYPE_NAMES[type][language])
-    })
+    const { types } = useLanguage()
 
     return (
         <button 
@@ -54,7 +50,7 @@ const PokemonCard = ({ pokemon, onClick, isActive, className }: PokemonCardProps
                                     }}
                                     >
                                     {
-                                        TYPE_NAMES[type][language]
+                                        types[type]
                                     }
                                 </span>
                             )

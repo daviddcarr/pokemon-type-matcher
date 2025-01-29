@@ -11,15 +11,14 @@ import LanguageSelector from "@components/LanguageSelector"
 import Overlays from "@components/Overlays"
 import { MdSwapHorizontalCircle } from "react-icons/md"
 import TypeIcon from "@components/TypeIcon"
-import { LANGUAGE_DICT_ATTACKING } from "@data/languages"
 
 import useStyles from "@lib/useStyles"
 import useApp from "@lib/useApp"
+import useLanguage from "@lib/useLanguage"
 import InfoButton from "@components/InfoPanel/InfoButton"
 
 function App() {
   const { 
-    language,
     selectedType,
     selectedDualType,
     battlePosition,
@@ -30,6 +29,7 @@ function App() {
   } = useApp()
 
   const styles = useStyles()
+  const { attacking } = useLanguage()
 
   // Resize observer to control scale of type circle
   const [ radius, setRadius ] = useState<number>(2);
@@ -127,7 +127,7 @@ function App() {
             styles.headingFont,
             "text-xl text-slate-900 dark:text-white"
             )}
-            >{ LANGUAGE_DICT_ATTACKING[language] }</h2>
+            >{ attacking }</h2>
 
           <TypeIcon
             type={battlePosition === "to" ? "all" : selectedType?.name}
@@ -176,7 +176,7 @@ function App() {
     
                       setDualTypes(mainType, dualType)
                     }}
-                    ><MdSwapHorizontalCircle className="text-4xl" /></button>
+                    ><MdSwapHorizontalCircle className="text-4xl text-white dark:text-slate-900" /></button>
                 )
               }
             </div>

@@ -3,6 +3,7 @@ import { useState } from "react"
 import { Pokemon } from "@lib/types"
 import useApp from '@lib/useApp'
 import useStyles from "@lib/useStyles"
+import useLanguage from "@lib/useLanguage"
 import POKEMON from "@data/pokemon"
 import ALL_POKE_TYPES from "@data/types"
 
@@ -20,6 +21,7 @@ const PokemonSelector = () => {
         setShowPokemonSelector } = useApp()
 
     const styles = useStyles()
+    const { close } = useLanguage()
 
     const [ filteredPokemon, setFilteredPokemon ] = useState<Pokemon[]>(POKEMON)
 
@@ -99,7 +101,7 @@ const PokemonSelector = () => {
                     )}
                     onClick={() => handlePokemonSelect(null)}
                     >
-                    Close
+                    { close }
                 </button>
             </div>
         </div>

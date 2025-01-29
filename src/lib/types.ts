@@ -26,7 +26,7 @@ export type DualDamageRelationKey =
     "quarter_damage_from" |
     "no_damage_from"
 
-export type LocalizedTypeNames = Record<PokeType, Record<SupportedLanguage, string>>
+export type LocalizedTypeNamesByLanguage = Record<SupportedLanguage, Record<PokeType, string>>
 
 type PokeDamageRelations = Record<DamageRelationKey, PokeType[]>
 export type DualPokeDamageRelations = Record<DualDamageRelationKey, PokeType[]>
