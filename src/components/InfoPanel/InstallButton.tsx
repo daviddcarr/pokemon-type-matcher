@@ -1,9 +1,11 @@
 import { useEffect } from "react"
 import { RiMobileDownloadLine } from "react-icons/ri"
 import useApp from "@lib/useApp"
+import useLanguage from "@lib/useLanguage"
 
 function InstallButton() {
   const {deferredPrompt, setDeferredPrompt} = useApp()
+  const { install } = useLanguage()
 
   useEffect(() => {
     const handler = (e: BeforeInstallPromptEvent) => {
@@ -32,7 +34,7 @@ function InstallButton() {
 
   return (
       <button onClick={handleInstall} className="install-button text-slate-900 dark:text-white flex items-center gap-1">
-       <RiMobileDownloadLine /> Install
+       <RiMobileDownloadLine /> { install }
       </button>
   )
 }

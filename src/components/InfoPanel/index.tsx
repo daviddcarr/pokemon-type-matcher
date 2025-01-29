@@ -2,12 +2,16 @@ import { useEffect, useState } from "react"
 import isDeviceIos from "@lib/isDeviceIos"
 import useApp from "@lib/useApp"
 import useStyles from "@lib/useStyles";
+import useLanguage from "@lib/useLanguage";
 
 import { MdIosShare, MdSwapHorizontalCircle } from "react-icons/md";
 
 import InstallButton from "@components/InfoPanel/InstallButton"
 import PokemonSelectorButton from "@components/HubSelector/PokemonSelectorButton";
 import { GiCrossedSwords, GiVibratingShield } from "react-icons/gi";
+import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
+import { SiBuymeacoffee } from "react-icons/si";
+import { BiLogoVenmo } from "react-icons/bi";
 import TypeButton from "@components/HubSelector/TypeButton";
 import PointerIcon from "@components/Pointers/PointerIcon";
 
@@ -18,6 +22,7 @@ const InfoPanel = () => {
 
     const { setShowInfo } = useApp()
     const styles = useStyles()
+    const { info, close } = useLanguage()
 
     const [ isIos, setIsIos ] = useState(false);
 
@@ -33,32 +38,31 @@ const InfoPanel = () => {
 
     return (
         <>
-            <div className="absolute inset-0 w-full h-full z-40 grid grid-rows-[auto,1fr,auto] bg-white dark:bg-slate-900">
+            <div className="absolute inset-0 w-full h-full z-40 grid grid-rows-[auto,1fr,auto] bg-white dark:bg-slate-900 rounded-md overflow-hidden">
                 
                 <div className="p-4 bg-slate-200 dark:bg-slate-950">
                     <h2 className={classNames(
                         styles.headingFont,
                         "text-slate-900 dark:text-white text-xl uppercase"
-                        )}>Info</h2>
+                        )}>{info.info}</h2>
                 </div>
                 
                 <div className="overflow-y-scroll h-full w-full p-8 text-slate-900 dark:text-white space-y-8">
    
                     <div className={classes.section}>
-                        <h3 className={classes.header}>What Is This?</h3>
+                        <h3 className={classes.header}>{ info.whatTitle }</h3>
 
-                        <p>PokéType Matcher is a tool to visualize how different Pokémon types affect each other.</p>
-                        {/* <p>There are various charts and infographics to illustrate how types affect each other but I wanted something more interactive and explicit.</p> */}
+                        <p>{ info.whatMessage }</p>
                     </div>
 
                     <div className={classes.section}>
 
-                        <h3 className={classes.header}>How Do I Use It?</h3>
+                        <h3 className={classes.header}>{ info.howTitle }</h3>
 
                         <div className={classes.iconGrid}>
                             <PokemonSelectorButton className="w-10 h-10" />
                             <div>
-                                <p className="">Select a Pokemon to autofill types.</p>
+                                <p>{ info.pokemonButton }</p>
                             </div>
                         </div>
 
@@ -69,7 +73,7 @@ const InfoPanel = () => {
                                 onClick={() => {}}
                                 />
                             <div>
-                                <p className="">Select a Main or Dual Type. In Attack Mode, only the Main type is used to calculate damage.</p>
+                                <p>{ info.typeButton }</p>
                             </div>
                         </div>
 
@@ -77,10 +81,10 @@ const InfoPanel = () => {
                             <button
                                 className="h-10 w-10 flex items-center justify-center text-slate-900 dark:text-slate-200 p-2 rounded-full bg-slate-400 dark:bg-slate-600"
                                 onClick={() => {}}
-                                ><MdSwapHorizontalCircle className="text-4xl" />
+                                ><MdSwapHorizontalCircle className="text-4xl text-white dark:text-slate-900" />
                             </button>
                             <div>
-                                <p className="">Swap Main and Dual Types (Doesn't affect damage in Defense Mode.)</p>
+                                <p>{ info.swapButton }</p>
                             </div>
                         </div>
 
@@ -89,7 +93,7 @@ const InfoPanel = () => {
                                 <GiCrossedSwords className="text-white text-[1.4rem]" />
                             </div>
                             <div>
-                                <p className="">Attack Mode: When in this mode the selected type (the one in the center of the wheel) is 'attacking' the types around it. The pointers indicate how the selected type would affect the ones around it.</p>
+                                <p>{ info.attackButton }</p>
                             </div>
                         </div>
 
@@ -98,7 +102,7 @@ const InfoPanel = () => {
                                 <GiVibratingShield className="text-white text-[1.4rem]" />
                             </div>
                             <div>
-                                <p className="">Defense Mode: When in this mode the selected type(s) are defending against the types around the wheel. The pointers indicate how the surrounding types would affect a Pokémon with the selected types.</p>
+                                <p>{ info.defenseButton }</p>
                             </div>
                         </div>
 
@@ -108,7 +112,7 @@ const InfoPanel = () => {
                                 <PointerIcon damageType="quadruple" className="w-[14px] h-10 fill-slate-900 dark:fill-white" />
                             </div>
                             <div>
-                                <p className="">The arrow pointers indicate 'Super Effective' damage and the direction of attack. The '+' indicates that an attack may do quadruple damage.</p>
+                                <p>{ info.pointerArrow }</p>
                             </div>
                         </div>
 
@@ -118,39 +122,86 @@ const InfoPanel = () => {
                                 <PointerIcon damageType="quarter" className="w-[14px] h-10 fill-slate-900 dark:fill-white" />
                             </div>
                             <div>
-                                <p className="">The shields indicate 'Not Very Effective' damage. The '+' indicates that an attack may do quarter damage.</p>
+                                <p>{ info.pointerShield }</p>
                             </div>
                         </div>
                     </div>
 
                     <div className={classes.section}>
-                        <h3 className={classes.header}>Install on Device:</h3>
+                        <h3 className={classes.header}>{ info.installTitle }</h3>
                         {
                         isIos ? (
                             <>
-                            <ol>
-                                <li>Tap the 'Share' button <MdIosShare />.</li>
-                                <li>Tap 'Add to Home Screen'.</li>
-                                <li>Tap 'Add'.</li>
+                            <ol className="list-decimal ml-5 space-y-2">
+                                {
+                                    info.iosInstructions.map((instruction, index) => {
+                                        
+                                        return (
+                                            <li key={index}><span className="flex items-center gap-1">{instruction} { index === 0 && (<MdIosShare />) }</span></li>
+                                        )
+                                    })
+                                }
                             </ol>
                             </>
                         ) : (
                             <>
                                 <InstallButton />
+                                <ol className="list-decimal ml-5 space-y-2">
+                                {
+                                    info.androidInstructions.map((instruction, index) => {
+                                        
+                                        return (
+                                            <li key={index}><span className="flex items-center gap-1">{instruction} { index === 0 && (<MdIosShare />) }</span></li>
+                                        )
+                                    })
+                                }
+                            </ol>
                             </>
                         )
                         }
+                    </div>
+
+                    <div className={classes.section}>
+                        <h3 className={classes.header}>{ info.whatElse }</h3>
+
+                        <p>{ info.disclaimer }</p>
+
+                        <nav>
+                            <ul className='flex space-x-4'>
+                                <li>
+                                    <a href="https://github.com/daviddcarr" target="_blank" rel="noreferrer" aria-label="Developer GitHub Profile">
+                                        <AiFillGithub />
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.linkedin.com/in/david--dylan/" target="_blank" rel="noreferrer" aria-label="Developer LinkedIn Profile">
+                                        <AiFillLinkedin />
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://bmc.link/davidcarr" target="_blank" rel="noreferrer" aria-label="Buy me a coffee">
+                                        <SiBuymeacoffee />
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://account.venmo.com/u/david__dylan" target="_blank" rel="noreferrer" aria-label="Venmo">
+                                        <BiLogoVenmo />
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
                 
                 
                 <button
+                    onClick={() => setShowInfo(false)}
                     className={classNames(
                         styles.headingFont,
                         "w-full p-4 bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-900 dark:text-slate-200"
                         )}
                     >
-                    <h2 onClick={() => setShowInfo(false)}>Close</h2>
+                    <h2>{ close }</h2>
                 </button>
                 
             </div>
