@@ -1,5 +1,4 @@
 import { DualDamageTypes } from "@lib/types"
-import classNames from "classnames"
 
 interface PointerIconProps {
     damageType: DualDamageTypes,
