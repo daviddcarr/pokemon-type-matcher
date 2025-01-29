@@ -1,5 +1,6 @@
 import classNames from 'classnames'
 import useApp from '@lib/useApp'
+import useStyles from "@lib/useStyles"
 import { Pokemon, PokeType } from "@lib/types"
 import TYPE_NAMES from "@data/languages"
 import { getDataFromType } from "@data/types"
@@ -13,7 +14,8 @@ export interface PokemonCardProps {
 
 const PokemonCard = ({ pokemon, onClick, isActive, className }: PokemonCardProps) => {
 
-    const { language } = useApp();
+    const { language } = useApp()
+    const styles = useStyles()
 
     const translatedTypeNames: string[] = []
     pokemon.types.forEach((type: PokeType) => {
@@ -34,7 +36,10 @@ const PokemonCard = ({ pokemon, onClick, isActive, className }: PokemonCardProps
                 className="w-16 h-16 ml-4"
                 />
             <div className="ml-4 text-left">
-                <p className="text-lg font-bold text-black dark:text-white">
+                <p className={classNames(
+                    styles.headingFont,
+                    "text-lg font-bold text-black dark:text-white capitalize"
+                    )}>
                     { language === "en" ? pokemon.name : pokemon.names[language] }
                 </p>
                 <div className="flex gap-1">

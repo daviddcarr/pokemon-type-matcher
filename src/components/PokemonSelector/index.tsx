@@ -2,10 +2,12 @@ import { useState } from "react"
 
 import { Pokemon } from "@lib/types"
 import useApp from '@lib/useApp'
+import useStyles from "@lib/useStyles"
 import POKEMON from "@data/pokemon"
 import ALL_POKE_TYPES from "@data/types"
 
 import PokemonCard from "./PokemonCard"
+import classNames from "classnames"
 
 
 const PokemonSelector = () => {
@@ -16,6 +18,8 @@ const PokemonSelector = () => {
         setSelectedType, 
         setSelectedDualType, 
         setShowPokemonSelector } = useApp()
+
+    const styles = useStyles()
 
     const [ filteredPokemon, setFilteredPokemon ] = useState<Pokemon[]>(POKEMON)
 
@@ -89,7 +93,10 @@ const PokemonSelector = () => {
             {/* Close Button */}
             <div className="w-full">
                 <button 
-                    className="w-full p-4 border-t-2 border-slate-200 dark:border-slate-950 bg-white dark:bg-slate-700 text-black dark:text-white"
+                    className={classNames(
+                        styles.headingFont,
+                        "w-full p-4 border-t-2 border-slate-200 dark:border-slate-950 bg-white dark:bg-slate-700 text-black dark:text-white"
+                    )}
                     onClick={() => handlePokemonSelect(null)}
                     >
                     Close

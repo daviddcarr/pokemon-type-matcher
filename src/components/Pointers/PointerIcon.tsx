@@ -53,7 +53,7 @@ const PointerIcon = ({
                 >
                 <path 
                     id="effective" 
-                    className="fill-white dark:fill-slate-900"
+                    className=""
                     d={SVG_DATA[damageType].path}
                     />
             </svg>

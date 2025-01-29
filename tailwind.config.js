@@ -5,7 +5,12 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        heading: ['Yusei Magic', 'sans-serif'],
+        headingKorean: ['Gugi', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 }

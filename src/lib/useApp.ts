@@ -19,6 +19,7 @@ interface AppState {
     showTypeSelector: boolean;
     showDualTypeSelector: boolean;
     showPokemonSelector: boolean;
+    showInfo: boolean;
 
     // Actions
     setSelectedType: (type: PokeTypeData | null) => void;
@@ -28,8 +29,13 @@ interface AppState {
     setShowTypeSelector: (show: boolean) => void;
     setShowDualTypeSelector: (show: boolean) => void;
     setShowPokemonSelector: (show: boolean) => void;
+    setShowInfo: (show: boolean) => void;
     setSelectedPokemon: (p: Pokemon | null) => void;
     setLanguage: (lang: SupportedLanguage) => void;
+
+    // Install Prompt States
+    deferredPrompt: BeforeInstallPromptEvent | null;
+    setDeferredPrompt: (e: BeforeInstallPromptEvent | null) => void;
 }
 
 const pokemonHasType = (type: PokeTypeData, pokemon: Pokemon) => {
@@ -51,6 +57,7 @@ const useApp = create<AppState>((set) => ({
     showTypeSelector: false,
     showDualTypeSelector: false,
     showPokemonSelector: false,
+    showInfo: false,
     selectedPokemon: null,
     language: "en",
 
@@ -116,11 +123,39 @@ const useApp = create<AppState>((set) => ({
 
     
     setBattlePosition: (pos: BattlePositions) => set({ battlePosition: pos }),
-    setShowTypeSelector: (show: boolean) => set({ showTypeSelector: show }),
-    setShowDualTypeSelector: (show: boolean) => set({ showDualTypeSelector: show }),
-    setShowPokemonSelector: (show: boolean) => set({ showPokemonSelector: show }),
+    setShowTypeSelector: (show: boolean) => set({ 
+        showTypeSelector: show,
+        showDualTypeSelector: false,
+        showPokemonSelector: false,
+        showInfo: false
+    }),
+    setShowDualTypeSelector: (show: boolean) => set({ 
+        showDualTypeSelector: show, 
+        showTypeSelector: false, 
+        showPokemonSelector: false, 
+        showInfo: false 
+    }),
+    setShowPokemonSelector: (show: boolean) => set({ 
+        showPokemonSelector: show, 
+        showTypeSelector: false, 
+        showDualTypeSelector: false, 
+        showInfo: false 
+    }),
+    setShowInfo: (show: boolean) => set(() => {
+        console.log("Set Show Info", show)
+
+    return { 
+        showInfo: show, 
+        showTypeSelector: false, 
+        showDualTypeSelector: false, 
+        showPokemonSelector: false 
+    }}),
     setSelectedPokemon: (p: Pokemon | null) => set({ selectedPokemon: p }),
     setLanguage: (lang: SupportedLanguage) => set({ language: lang }),
+
+    // Install Prompt States
+    deferredPrompt: null,
+    setDeferredPrompt: (e: BeforeInstallPromptEvent | null) => set({ deferredPrompt: e })
 }))
 
 export default useApp
