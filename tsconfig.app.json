@@ -27,7 +27,8 @@
       "@data/*": ["data/*"],
       "@components/*": ["components/*"],
       "@lib/*": ["lib/*"],
-      "@assets/*": ["assets/*"]
+      "@assets/*": ["assets/*"],
+      "@shaders/*": ["shaders/*"]
     }
   },
   "include": ["src"]
