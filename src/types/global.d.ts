@@ -7,3 +7,8 @@ interface BeforeInstallPromptEvent extends Event {
   interface WindowEventMap {
     beforeinstallprompt: BeforeInstallPromptEvent;
   }
+
+declare module '*.glsl' {
+    const value: string;
+    export default value;
+}
