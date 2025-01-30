@@ -1,7 +1,7 @@
 {
     "name": "Pokémon Type Matcher",
     "short_name": "PokeType",
-    "description": "A tool to visualize how different types affect each other",
+    "description": "A tool to visualize how different Pokémon types affect each other",
     "icons": [
         {
             "src": "/appicon-192x192.png",

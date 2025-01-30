@@ -20,7 +20,7 @@ const PokemonSelectorButton = ({
             onClick={() => setShowPokemonSelector(true)}
             >
             <div 
-                className="w-full h-full rounded-full border-[3px] border-slate-100 dark:border-slate-800 bg-white pointer-events-auto flex items-center justify-center"
+                className="w-full h-full rounded-full border-[3px] border-slate-400 dark:border-slate-800 bg-white pointer-events-auto flex items-center justify-center"
                 >
                     { selectedPokemon ? (
                         <img src={selectedPokemon?.sprites.front_default ?? ""} className="max-w-full max-h-full" />

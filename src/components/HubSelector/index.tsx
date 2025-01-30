@@ -49,7 +49,7 @@ const HubSelector = ({
                     {/* Selected type */}
                     <div 
                         className={classNames(
-                            "absolute rounded-full h-full w-full z-20 border-4 border-slate-100 dark:border-slate-800 origin-center flex items-center justify-center transition-transform pointer-events-auto cursor-pointer",
+                            "absolute rounded-full h-full w-full z-20 border-4 border-slate-400 dark:border-slate-800 origin-center flex items-center justify-center transition-transform pointer-events-auto cursor-pointer",
                             parentMounted ? 'scale-100' : 'scale-0'
                         )}
                         style={{

@@ -22,7 +22,7 @@ const TypeButton = ({
             onClick={onClick}
             >
             <div 
-                className="w-full h-full rounded-full border-[3px] border-slate-100 dark:border-slate-800 pointer-events-auto flex items-center justify-center"
+                className="w-full h-full rounded-full border-[3px] border-slate-400 dark:border-slate-800 pointer-events-auto flex items-center justify-center"
                 style={{
                     backgroundColor: selectedType?.color ?? "white"
                 }}
