@@ -17,6 +17,7 @@ import useApp from "@lib/useApp"
 import useLanguage from "@lib/useLanguage"
 import InfoButton from "@components/InfoPanel/InfoButton"
 import BackgroundCanvas from "@components/BackgroundCanvas"
+import MobileSpacer from "@components/MobileSpacer"
 
 function App() {
   const { 
@@ -181,7 +182,7 @@ function App() {
                 {
                   selectedDualType && (                  
                     <button
-                      className="h-10 w-10 sm:h-16 sm:w-16 flex items-center justify-center text-slate-900 dark:text-slate-200 p-2 rounded-full bg-slate-400 dark:bg-slate-600"
+                      className="h-10 w-10 sm:h-16 sm:w-16 flex items-center justify-center border-[3px] border-slate-400 dark:border-slate-800 text-slate-900 dark:text-slate-200 p-2 rounded-full bg-slate-400 dark:bg-slate-600"
                       onClick={() => {
                         const mainType = selectedDualType
                         const dualType = selectedType
@@ -198,8 +199,8 @@ function App() {
 
 
           </div>
-          <div className="sm:hidden w-full h-6 bg-slate-300 dark:bg-slate-950"></div>
-        </div>
+          <MobileSpacer />
+      </div>
 
 
       </div>

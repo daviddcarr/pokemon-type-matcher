@@ -50,6 +50,17 @@ const Pointer = ({ type, radius, position, damageType, parentMounted }: PointerP
                             }}
                             />
 
+                        { damageType !== "double" && damageType !== "quadruple" && (
+                            <PointerIcon
+                                damageType={"double"}
+                                className="translate-x-1/2 fill-white dark:fill-slate-900"
+                                style={{
+                                    transform: `translateX(-50%) translateY(5px) ${position === "to" ? "rotate(0deg)" : "rotate(180deg)"}`,
+                                    width: `${radius * 0.03}px`
+                                }}
+                                />
+                        )}
+
                     </div>
         </div>
     )

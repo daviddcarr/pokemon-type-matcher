@@ -9,6 +9,7 @@ import ALL_POKE_TYPES from "@data/types"
 
 import PokemonCard from "./PokemonCard"
 import classNames from "classnames"
+import MobileSpacer from "@components/MobileSpacer"
 
 
 const PokemonSelector = () => {
@@ -103,6 +104,8 @@ const PokemonSelector = () => {
                     >
                     { close }
                 </button>
+
+                <MobileSpacer />
             </div>
         </div>
     )

@@ -17,6 +17,7 @@ import PointerIcon from "@components/Pointers/PointerIcon";
 
 import ALL_POKE_TYPES from "@data/types";
 import classNames from "classnames";
+import MobileSpacer from "@components/MobileSpacer";
 
 const InfoPanel = () => {
 
@@ -38,7 +39,7 @@ const InfoPanel = () => {
 
     return (
         <>
-            <div className="absolute inset-0 w-full h-full z-40 grid grid-rows-[auto,1fr,auto] bg-white dark:bg-slate-900 rounded-md overflow-hidden">
+            <div className="absolute inset-0 w-full h-full z-40 grid grid-rows-[auto,1fr,auto,auto] bg-white dark:bg-slate-900 rounded-md overflow-hidden">
                 
                 <div className="p-4 bg-slate-200 dark:bg-slate-950">
                     <h2 className={classNames(
@@ -79,7 +80,7 @@ const InfoPanel = () => {
 
                         <div className={classes.iconGrid}>
                             <button
-                                className="h-10 w-10 flex items-center justify-center text-slate-900 dark:text-slate-200 p-2 rounded-full bg-slate-400 dark:bg-slate-600"
+                                className="h-10 w-10 flex items-center justify-center text-slate-900 dark:text-slate-200 p-2 rounded-full border-[3px] border-slate-100 dark:border-slate-800 bg-slate-400 dark:bg-slate-600"
                                 onClick={() => {}}
                                 ><MdSwapHorizontalCircle className="text-4xl text-white dark:text-slate-900" />
                             </button>
@@ -204,6 +205,7 @@ const InfoPanel = () => {
                     <h2>{ close }</h2>
                 </button>
                 
+                <MobileSpacer />
             </div>
         </>
     )
