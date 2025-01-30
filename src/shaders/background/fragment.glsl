@@ -35,7 +35,7 @@ void main() {
 
     float angle_2 = atan(arUv.x - (iResolution.x / iResolution.y * 0.5), arUv.y - 0.5) / (PI * 4.0) - (iTime * 0.003);
     float center_radius_2 = 1.0 - distance(arUv, cUv);
-    float radius_reduced_2 = pow(center_radius_2, 3.0);
+    float radius_reduced_2 = pow(center_radius_2, 2.95);
     
     float spokes_2 = sin(angle_2 * 200.0);
     spokes_2 = spokes_2 * radius_reduced_2;
