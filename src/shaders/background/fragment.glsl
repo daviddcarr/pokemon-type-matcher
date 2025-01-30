@@ -22,13 +22,26 @@ void main() {
 
     // Spinning Spokes
     float mask = 0.0;
-    float angle = atan(arUv.x - (iResolution.x / iResolution.y * 0.5), arUv.y - 0.5) / (PI * 4.0) - (iTime * 0.02);
+
+    float angle = atan(arUv.x - (iResolution.x / iResolution.y * 0.5), arUv.y - 0.5) / (PI * 4.0) - (iTime * 0.005);
     float center_radius = 1.0 - distance(arUv, cUv);
     float radius_reduced = pow(center_radius, 3.0);
     
-    mask = sin(angle * 100.0);
-    mask = mask * radius_reduced;
-    mask = max(mask, pow(radius_reduced, 1.5));
+    float spokes = sin(angle * 100.0);
+    spokes = spokes * radius_reduced;
+
+    mask = max(spokes, pow(radius_reduced, 1.5));
+
+
+    float angle_2 = atan(arUv.x - (iResolution.x / iResolution.y * 0.5), arUv.y - 0.5) / (PI * 4.0) - (iTime * 0.003);
+    float center_radius_2 = 1.0 - distance(arUv, cUv);
+    float radius_reduced_2 = pow(center_radius_2, 3.0);
+    
+    float spokes_2 = sin(angle_2 * 200.0);
+    spokes_2 = spokes_2 * radius_reduced_2;
+    spokes_2 = max(spokes_2, pow(radius_reduced_2, 1.2));
+
+    mask = max(mask, spokes_2);
 
     // Icon Paritcles
     float icons = 0.0;
@@ -47,6 +60,6 @@ void main() {
     }
     mask = max(mask, icons * 0.2);
 
-    gl_FragColor = vec4(vec3(0.0), mask);
+    gl_FragColor = vec4(vec3(0.0, 0.0, 0.03), mask);
     
 }
