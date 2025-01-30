@@ -27,10 +27,10 @@ void main() {
         rand_x *= (iResolution.x / iResolution.y);
 
         float time_offset = random(vec2(float(i + 2), float(i + 2))) * 40.0;
-        float speed_offset = max(0.02, random(vec2(float(i + 3), float(i + 3))) * 0.2);
-        float scale_factor = min(15.0, random(vec2(float(i + 5), float(i + 5))) * 200.0);
+        float speed_offset = (random(vec2(float(i + 3), float(i + 3))) * 0.04) + 0.01;
+        float scale_factor = (random(vec2(float(i + 5), float(i + 5))) + 1.0) * 7.0;
 
-        vec2 floatingUV = vec2(flippedUV.x - (rand_x), fract(flippedUV.y + ((iTime + abs(time_offset)) * abs(speed_offset))));
+        vec2 floatingUV = vec2(flippedUV.x - (rand_x), fract(flippedUV.y + ((iTime + time_offset) * abs(speed_offset))));
         vec4 textureColor = texture2D(typeIcon, floatingUV * scale_factor);
 
         mask = max(mask, textureColor.r);
