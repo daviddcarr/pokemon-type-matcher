@@ -137,5 +137,7 @@ export default function BackgroundCanvas() {
 
   }, [selectedType]);
 
-  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full opacity-10 dark:opacity-20" />;
+  const classes = "absolute inset-0 w-full h-full opacity-50 dark:opacity-90"
+
+  return <canvas ref={canvasRef} className={classes} />;
 }

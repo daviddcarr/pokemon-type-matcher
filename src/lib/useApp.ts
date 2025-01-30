@@ -20,6 +20,7 @@ interface AppState {
     showDualTypeSelector: boolean;
     showPokemonSelector: boolean;
     showInfo: boolean;
+    showLanguageOptions: boolean;
 
     // Actions
     setSelectedType: (type: PokeTypeData | null) => void;
@@ -30,6 +31,7 @@ interface AppState {
     setShowDualTypeSelector: (show: boolean) => void;
     setShowPokemonSelector: (show: boolean) => void;
     setShowInfo: (show: boolean) => void;
+    setShowLanguageOptions: (show: boolean) => void;
     setSelectedPokemon: (p: Pokemon | null) => void;
     setLanguage: (lang: SupportedLanguage) => void;
 
@@ -58,6 +60,7 @@ const useApp = create<AppState>((set) => ({
     showDualTypeSelector: false,
     showPokemonSelector: false,
     showInfo: false,
+    showLanguageOptions: false,
     selectedPokemon: null,
     language: "en",
 
@@ -150,6 +153,7 @@ const useApp = create<AppState>((set) => ({
         showDualTypeSelector: false, 
         showPokemonSelector: false 
     }}),
+    setShowLanguageOptions: (show: boolean) => set({ showLanguageOptions: show }),
     setSelectedPokemon: (p: Pokemon | null) => set({ selectedPokemon: p }),
     setLanguage: (lang: SupportedLanguage) => set({ language: lang }),
 

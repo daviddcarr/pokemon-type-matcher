@@ -23,6 +23,7 @@ function App() {
     selectedType,
     selectedDualType,
     battlePosition,
+    showLanguageOptions,
     setDualTypes,
     setShowTypeSelector,
     setShowDualTypeSelector,
@@ -68,6 +69,35 @@ function App() {
         {/* Header Bar */}
         <div className="relative w-full flex items-center justify-between p-4 z-0 bg-slate-200 dark:bg-slate-900">
           <LanguageSelector />
+
+
+          {/* Tooltip */}
+          <div className={classNames(
+              "items-center justify-center gap-2 z-10",
+              showLanguageOptions ? "hidden sm:flex" : "flex"
+            )}>
+            <TypeIcon
+              type={battlePosition === "from" ? "all" : selectedType.name}
+              className="w-[18px] h-[18px] fill-slate-900 dark:fill-white"
+              /> 
+
+            <h2 className={classNames(
+              styles.headingFont,
+              "text-md text-slate-900 dark:text-white"
+              )}
+              >{ attacking }</h2>
+
+            <TypeIcon
+              type={battlePosition === "to" ? "all" : selectedType?.name}
+              className="w-[18px] h-[18px] fill-slate-900 dark:fill-white"
+              />
+            { battlePosition == "from" && selectedDualType && (
+              <TypeIcon
+                type={selectedDualType.name}
+                className="w-[18px] h-[18px] fill-slate-900 dark:fill-white"
+                />
+            )}
+          </div>
 
           <InfoButton 
             onClick={() => {
@@ -118,30 +148,6 @@ function App() {
             </div>
           </div>
 
-          {/* Tooltip */}
-          <div className="p-2 flex items-center justify-center gap-2 z-10">
-            <TypeIcon
-              type={battlePosition === "from" ? "all" : selectedType.name}
-              className="w-8 fill-slate-900 dark:fill-white"
-              /> 
-
-            <h2 className={classNames(
-              styles.headingFont,
-              "text-xl text-slate-900 dark:text-white"
-              )}
-              >{ attacking }</h2>
-
-            <TypeIcon
-              type={battlePosition === "to" ? "all" : selectedType?.name}
-              className="w-8 fill-slate-900 dark:fill-white"
-              />
-            { battlePosition == "from" && selectedDualType && (
-              <TypeIcon
-                type={selectedDualType.name}
-                className="w-8 fill-slate-900 dark:fill-white"
-                />
-            )}
-          </div>
 
           <BackgroundCanvas />
         </div>
