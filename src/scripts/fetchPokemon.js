@@ -3,6 +3,18 @@ import fetch from 'node-fetch';
 
 export const SUPPORTED_LANGUAGES = [ "en", "ja", "es", "fr", "it", "de", "ko" ]
 
+const generations = [
+    151,
+    251,
+    386,
+    493,
+    649,
+    721,
+    809,
+    905,
+    1025
+]
+
 const userArg = parseInt(process.argv[2], 10);
 const CURRENT_MAX = Number.isNaN(userArg) ? 1025 : userArg;
 
@@ -35,12 +47,21 @@ async function main() {
 
             const data = await resp.json();
             const types = data.types.map((t) => t.type.name);
+            let generation = 1;
+            for (let index = 0; index < generations.length; index++) {
+                if (id <= generations[index]) {
+                    generation = index + 1;
+                    break;
+                }
+            }
+
             const pokemon = {
                 id: data.id,
                 name: data.name,
                 types,
                 sprites: { front_default: data.sprites.front_default },
-                names: []
+                names: [],
+                generation
             }
 
             // Check for names in other languages

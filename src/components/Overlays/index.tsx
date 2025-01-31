@@ -44,7 +44,7 @@ const Overlays = () => {
       
             {
               showPokemonSelector && (
-                <div className="w-full h-full md:max-w-[80vw] md:max-h-[80vh] relative">
+                <div className="w-full h-full md:max-w-[80vw] md:max-h-[80vh] relative md:rounded-md overflow-hidden">
                   <PokemonSelector />
                 </div>
               )
@@ -52,7 +52,7 @@ const Overlays = () => {
 
             {
               showInfo && (
-                <div className="w-full h-full md:max-w-[60vw] md:max-h-[85vh] relative">
+                <div className="w-full h-full md:max-w-[60vw] md:max-h-[85vh] relative md:rounded-md overflow-hidden">
                   <InfoPanel />
                 </div>
               )

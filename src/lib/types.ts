@@ -44,4 +44,5 @@ export type Pokemon = {
     names: Record<string, string>
     types: Array<PokeType>
     sprites: { front_default: string }
+    generation: number
 }
